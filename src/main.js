@@ -4,6 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import './assets/css/fonts'
+import './assets/scss/style'
+import './config/rem'
+
+// require('./mock');
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -12,4 +18,11 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+})
+
+router.beforeEach((to, from, next) => {
+	if(to.meta.title) {
+		document.title = to.meta.title;
+	}
+	next();
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- <img src="./assets/logo.png"> -->
     <router-view/>
   </div>
 </template>
@@ -12,12 +12,74 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body,html,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,input,textarea,p,span,table,tr,th,td,header,nav,section,article,aside,footer,button,img,a,s,i {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
 }
+ html {
+    font-size: 20px;
+}      
+body {
+    font:  14px/24px 'Helvetica Neue',Helvetica,STHeiTi,sans-serif;
+    -webkit-user-select: none;
+    color: #333;
+    background-color: #f6f6f6;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+h1,h2,h3,h4,h5,h6 {
+    font-size: inherit;
+    font-weight: normal;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+fieldset,img{
+    border: 0;
+}
+li{
+    list-style: none;
+}
+input,button,textarea,select,option {
+    font: inherit;
+    border: 0;
+    outline: 0;
+    background: 0 0;
+    -webkit-appearance: none;
+}
+a,button,input,select,textarea,a:focus,button:focus,input:focus,select:focus,textarea:focus,[onclick] {
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+a {
+    text-decoration: none;
+    color: #333;
+    outline: 0;
+    -webkit-touch-callout: none;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+
+h5 {font-size: 12px;}
+h4{font-size: 14px;}
+h3{font-size: 16px;}
+h2{font-size: 18px;}
+h1{font-size: 20px;}
+
+.clearfix:after{
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+</style>
+
 </style>
