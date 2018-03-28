@@ -126,7 +126,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 
 
 // .border-list,
-// .border-list li,
+.border-list li,
 // .bg-show,
 // .ui-border,
 .border-top,
@@ -157,10 +157,11 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 //     @extend .border-top:after;
 // }
 
-// .bg-show:after,.border-list li:after {
-//     @extend .border-bottom:after;
+// .bg-show:after,
+.border-list li:after {
+    @extend .border-bottom:after;
     
-// }
+}
 // .ui-border:after {
 //     @extend %mini-border;
 //     border: 1px solid $border-color;
