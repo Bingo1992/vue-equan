@@ -1,10 +1,15 @@
 
 // -----theme color----
-$color-theme: #fe007f;
-$color-gray: #898989;
+$color-theme: #2dd3c8;
+$color-gray: #999;
 $border-color: #e1e1e1;
 
 $color-red: #f74c31;
+
+$bkg-theme: -webkit-linear-gradient(left, #27d0c9, #75f9bf);
+$bkg-orange: -webkit-linear-gradient(left, #ff5533, #ff8b3e);
+$bkg-blue: -webkit-linear-gradient(left, #1980ff, #5cc5ff);
+$bkg-red: -webkit-linear-gradient(left, #f53b6a, #ff7f89);
 
 $lg-font: 16px;
 $md-font: 12px;
@@ -87,3 +92,10 @@ $bgMargin: 16px;
     transform:scale(.5);
     box-sizing:border-box;
 }
+
+@function pxTorem($px){ 
+    @return $px / 40 * 1rem;
+}
+
+// 首页轮播图多出的高度
+$banBottom: pxTorem(24);

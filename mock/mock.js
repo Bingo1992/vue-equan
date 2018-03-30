@@ -2,15 +2,36 @@ module.exports = function () {
     // var faker = require("faker");
     // faker.locale = "zh_CN";
     // var _ = require("lodash");
-    var Mock = require('mockjs')
+    var Mock = require('mockjs');
+    var Random = Mock.Random;
     return {
-        data: Mock.mock({
+        proList: Mock.mock({
             // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
-            'list|1-10': [{
+            'list|10-20': [{
                 // 属性 id 是一个自增数，起始值为 1，每次增 1
-                'id|+1': 1
+                'id|+1': 1,
+                'imageUrl|+1': Random.image('200x200'),
+                'label1|+1': /满99-10|/,
+                'label2|+1': /券|/,
+                'label3|+1': /特价|/,
+                'proTitle|+1': Random.ctitle(13, 28),
+                'price|60-900': 1,
+                'marketPrice|65-988': 1
             }]
         }),
+        proDetail: Mock.mock({
+            'id': 111,
+            'imageList|2-5': [{
+                'url': Random.image('640x640') 
+            }],
+            'label1': /满99-10|/,
+            'label2': /券|/,
+            'label3': /特价|/,
+            'proTitle': Random.ctitle(13, 28),
+            'price|60-900': 1,
+            'marketPrice|65-988': 1
+           
+        })
     } 
     // return {
        

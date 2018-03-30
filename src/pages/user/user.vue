@@ -1,5 +1,5 @@
 <template>
-	<div class="user">
+	<div class="banner-b">
 		<ul class="border-list">
 			<li class="list-box">
 				<img src="../../assets/images/chat.png">
@@ -10,18 +10,24 @@
 				<a class="btn-theme">点击</a>
 			</li>
 		</ul>
+
+		<footer-nav></footer-nav>	
 	</div>
 </template>
 <script>
-	export default {
-		name: 'user',
-		data() {
-			return {
+import FooterNav from '/components/footer'
+export default {
+	name: 'user',
+	data() {
+		return {
 
-			}
 		}
-
+	},
+	components: {
+		FooterNav
 	}
+
+}
 </script>
 <style lang="scss">
 	

@@ -5,14 +5,28 @@
 .font-theme {color: $color-theme !important;}
 .font-yellow {color: #fdb235 !important;}
 .font-red {color:#ee5050 !important;}
-.font-orange {color: #f63 !important;}
-.font-gray {color:#898989 !important;}
+.font-orange {color: #fe5625 !important;}
+.font-gray {color: $color-gray !important;}
 .font-blue {color:#68839f !important;}
+
 .bg-red {background-color:#ee5050 !important;}
 .bg-success {background-color: #09BB07;}
 .bg-warn {background-color: #F76260;}
 .bg-info {background-color: #10AEFF;}
-.lg-font {font-size: 14px;}
+
+[class^="label-"] {
+    font-size: $md-font;
+    color: #fff;
+    border-radius: 2px;
+    line-height: 20px;
+    padding: 0 6px;
+    display: inline-block;
+}
+.label-theme {background: $bkg-theme;}
+.label-blue {background: $bkg-blue;}
+.label-orange {background: $bkg-orange;}
+.label-red {background: $bkg-red;}
+ 
 // padding
 .pdl {padding-left: 10px;}
 .pdr {padding-right: 10px;}
@@ -23,13 +37,16 @@
 .fr{float: right;}
 
 .center-text {text-align: center;}
- 
-.banner {margin-bottom: 80px;}
+.right-text {text-align: right;} 
+.banner-b {margin-bottom: 63px;}
 .banner-bt {
-    margin-top: 60px;
-    margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 63px;
 }
- 
+.md-font {font-size: 12px;}
+
+.bg-show {background-color: #fff;}
+
 .getmore {
     padding-bottom: $bgMargin;
     text-align: center;
@@ -94,6 +111,11 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 .fixed-top {
     @extend %fixed-top;
 }
+.children-view {
+  @extend %fixed-body;
+  z-index: 5;
+  background-color: #fff;
+}
 // --public-style---
 
 .nowrap {
@@ -123,7 +145,6 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 //     background-color: $color-red;
 //     font-size: 10px;
 // }
-
 
 // .border-list,
 .border-list li,
@@ -172,12 +193,12 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     background-color: #fff;
     width:100%;
 }
-.bg-show {
-    background-color: #fff;
-    margin-bottom: $bgMargin;
-    width:100%;
-    .border-list{margin-top:0;}
-}
+// .bg-show {
+//     background-color: #fff;
+//     margin-bottom: $bgMargin;
+//     width:100%;
+//     .border-list{margin-top:0;}
+// }
 
 // ----checkbox allcheck---
 .checkbox,.all-check {
@@ -213,45 +234,45 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 }
 
 /*slide checkbox*/
-.slide-btn {
-  @include height(30px);
-  input{
-    width: 50px;
-    @include height(30px);
-    margin: 0;
-    &:before{
-        content: "";
-        position:  absolute;
-        padding-left: 20px;
-        width: 50px;
-        @include semicircle(30px);
-        background-color: #ccc;
-        color: #fff;
-        box-sizing:border-box;
-        -webkit-transition: background-color .4s linear;
-    }
-    &:after {
-        content: "";
-        position: absolute;
-        display: inline-block;
-        @include circle(28px);
-        background-color: #fff;
-        box-sizing:border-box;
-        -webkit-transform:translateX(1px);
-        -webkit-transition: -webkit-transform .4s linear;
-        margin-top: 1px;
-    }
-    &:checked:before {
-        content: "";
-        background-color: $color-theme !important;
-        -webkit-transition: background-color .4s cubic-bezier(0.175, .885, .32, 1.1) 0s;
-    }
-    &:checked:after {
-        -webkit-transform:translateX(21px);
-        -webkit-transition: -webkit-transform .4s cubic-bezier(0.175, .885, .32, 1.1) 0s;
-    }
-  }
-}
+// .slide-btn {
+//   @include height(30px);
+//   input{
+//     width: 50px;
+//     @include height(30px);
+//     margin: 0;
+//     &:before{
+//         content: "";
+//         position:  absolute;
+//         padding-left: 20px;
+//         width: 50px;
+//         @include semicircle(30px);
+//         background-color: #ccc;
+//         color: #fff;
+//         box-sizing:border-box;
+//         -webkit-transition: background-color .4s linear;
+//     }
+//     &:after {
+//         content: "";
+//         position: absolute;
+//         display: inline-block;
+//         @include circle(28px);
+//         background-color: #fff;
+//         box-sizing:border-box;
+//         -webkit-transform:translateX(1px);
+//         -webkit-transition: -webkit-transform .4s linear;
+//         margin-top: 1px;
+//     }
+//     &:checked:before {
+//         content: "";
+//         background-color: $color-theme !important;
+//         -webkit-transition: background-color .4s cubic-bezier(0.175, .885, .32, 1.1) 0s;
+//     }
+//     &:checked:after {
+//         -webkit-transform:translateX(21px);
+//         -webkit-transition: -webkit-transform .4s cubic-bezier(0.175, .885, .32, 1.1) 0s;
+//     }
+//   }
+// }
 
 /*盒子布局*/
 .list-box {
@@ -262,6 +283,9 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     align-items: center;  
     box-sizing: border-box;
     padding: $gauge;
+    .list-box {
+        padding: 0;
+    }
 }
 
 .list-img {
@@ -271,10 +295,23 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     margin-right: $gauge;
 }
 
-.list-info {
+.list-info-v {
     display: flex;
     flex: 1;
     flex-direction: column;
+    // justify-content: flex-start;
+    // align-items: center;
+    p{
+        font-size: $md-font;
+        color: #666;
+        line-height: 22px;
+    }
+}
+.list-info-h {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex-direction: row;
     // justify-content: flex-start;
     // align-items: center;
     p{
@@ -290,6 +327,23 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     h4 {
         padding-left: 10px;
         border-left: 4px solid $color-theme;
+    }
+}
+.title-list {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    h4 {
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: 4px;
+    }
+    i {
+        @include circle(20px);
+        border: 1px solid #999;
+        color: #999;
     }
 }
 
@@ -398,7 +452,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
         display: inline-block;
     }
     input {
-        @extend .list-info;
+        @extend .list-info-v;
         @include height(24px);
     }
     .slide-btn {
@@ -468,14 +522,41 @@ li.vcode-box{
     vertical-align: middle;
 }
 
-/*放最后*/
-.more-wp-open {
-    -webkit-transform: translateX(0) translateZ(0) !important;    
-    -webkit-transition: all .4s;
+// 商品列表
+.pro-list {
+    overflow: hidden;
+    li {
+        padding: 0 pxTorem(4);
+        float: left;
+    }
+    h5 {
+        padding: 6px 0 2px 0;
+    }
+    .icon-coin {
+        font-size: 14px;
+        margin-right: -4px;
+        margin-top: -2px;
+    }
+    s {
+        font-size: 10px;
+        padding-left: 2px;
+    }
 }
-.more-top-open {
-    -webkit-transform: translateY(0) translateZ(0) !important;    
-    -webkit-transition: all .4s;
+.label {
+    [class^="label-"] {
+        margin-right: 2px;
+        margin-top: 8px;
+    }
+}
+
+/*放最后*/
+
+.router-slid-enter-active, .router-slid-leave-active {
+    transition: all .4s;
+}
+.router-slid-enter, .router-slid-leave-active {
+    transform: translate3d(2rem, 0, 0);
+    opacity: 0;
 }
 .show {display: block !important;}
 .hide {display: none !important;}

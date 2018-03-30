@@ -25,7 +25,7 @@ body {
     font:  14px/24px 'Helvetica Neue',Helvetica,STHeiTi,sans-serif;
     -webkit-user-select: none;
     color: #333;
-    background-color: #f6f6f6;
+    /*background-color: #f6f6f6;*/
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: rgba(255,255,255,0);
 }
@@ -67,11 +67,11 @@ img {
 }
 
 
-h5 {font-size: 12px;}
-h4{font-size: 14px;}
-h3{font-size: 16px;}
-h2{font-size: 18px;}
-h1{font-size: 20px;}
+h5 {font-size: 14px;}
+h4{font-size: 16px;}
+h3{font-size: 18px;}
+h2{font-size: 20px;}
+h1{font-size: 24px;}
 
 .clearfix:after{
     content: ".";

@@ -23,4 +23,5 @@ const fetch = (type,url,data) => {
 	})
 };
 
-export const data = (params) =>  fetch('post','/data',params);
+export const proList = (params) =>  fetch('get','/proList',params);
+export const proDetail = (params) =>  fetch('get','/proDetail',params);

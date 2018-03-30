@@ -1,14 +1,18 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import VueLazyload from 'vue-lazyload'
 import App from './App'
 import router from './router'
 
 import './assets/css/fonts'
 import './assets/scss/style'
-import './config/rem'
+import './utils/rem'
 
 // require('./mock');
+Vue.use(VueLazyload, {
+  loading: '/static/images/load.gif'
+})
 
 Vue.config.productionTip = false
 
