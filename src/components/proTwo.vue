@@ -1,57 +1,50 @@
 <template>
 	<div class="proListTwo">
-		<loading v-if="showLoading"></loading>
-		<div v-if="!showLoading">
-			<div class="title-list">
-				<h4>新品首发</h4>
-				<i class="icon-right"></i>
-			</div>
-			<ul class="pro-list pro-list-1">
-				<li v-for="(item, i) in proList" :key="item.id">
-					<router-link :to="{path:'/home/productDetail',query:{id: item.id}}">
-						<div class="pro-img-1">
-							<img v-lazy="item.imageUrl">
-							<span v-if="item.label1" class="label-orange">{{item.label1}}</span>
-						</div>
-						<h5 class="nowrap-2">{{item.proTitle}}</h5>
-						<div class="pdb">
-							<span class="font-orange">
-								<i class="icon-coin"></i>
-								{{item.price}}
-							</span>
-							<s class="right-text font-gray">市场价￥{{item.marketPrice}}</s>
-						</div>
-					</router-link>			
-				</li>
-			</ul>
+		<div class="title-list">
+			<h4>人气推荐</h4>
+			<i class="icon-right"></i>
 		</div>
-			
-		
+		<ul class="pro-list pro-list-2">
+			<li v-for="(item, i) in proList">
+				<router-link :to="{path:'/home/productDetail', query: {id: item.id}}">
+					<img class="pro-img-2" v-lazy="item.imageUrl">
+					<div class="label">
+						<span v-if="item.label1" class="label-orange">{{item.label1}}</span>
+						<span v-if="item.label2" class="label-blue">{{item.label2}}</span>
+						<span v-if="item.label3" class="label-red">{{item.label3}}</span>
+					</div>
+					
+					<h5 class="pro-title nowrap-2">{{item.proTitle}}</h5>
+					<div class="price-big">
+						<span class="font-orange">
+							<i class="icon-coin"></i>
+							{{item.price}}
+						</span>
+						<s class="right-text font-gray">市场价￥{{item.marketPrice}}</s>
+					</div>
+				</router-link>			
+			</li>
+		</ul>
 	</div>
 </template>
 <script>
 import {proList} from '/api/api';
-import loading from '/components/loading'
+ 
 export default {
-	name: 'proList1',
+	name: 'proList2',
 	data() {
 		return {
-			proList: [],
-			showLoading: true
+			proList: []
 		}
 	},
 	mounted() {
 		this._initData();
 	},
-	components: {
-	    loading
-  	},
 	// props: ['proList'],
 	methods: {
 		_initData() {
 			proList().then(res => {
 				this.proList = res.list;
-				this.showLoading = false; 
 			})
 		}
 	}
@@ -59,18 +52,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../assets/scss/var.scss";
-.pro-list-1 {
-	padding: 0 pxTorem(32);
+
+.pro-list-2 {
+	padding: 0 pxTorem(14);	
 	li {
-		width: pxTorem(228);
+		width: 50%;
+		padding: 0 pxTorem(10)  pxTorem(20) pxTorem(10);
+		height: pxTorem(353) + 5.3;
 	}
+
 }
-.pro-img-1 {
-	position: relative;
-	[class^="label-"] {
-		position: absolute;
-		bottom: 4px;
-		left: 4px;
-	}
-}	
+ 
+ 
 </style>

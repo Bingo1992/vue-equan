@@ -5,6 +5,24 @@ module.exports = function () {
     var Mock = require('mockjs');
     var Random = Mock.Random;
     return {
+        banner: [{
+            url: '../static/images/banner1.jpg'
+        }, {
+            url: '../static/images/banner1.jpg'
+        }, {
+            url: '../static/images/banner1.jpg'
+        }],
+        ads: [{
+            url: '../static/images/ban1.png'
+        }, {
+            url: '../static/images/ban1.png'
+        }, {
+            url: '../static/images/ban1.png'
+        }, {
+            url: '../static/images/ban1.png'
+        }, {
+            url: '../static/images/ban1.png'
+        }],
         proList: Mock.mock({
             // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
             'list|10-20': [{

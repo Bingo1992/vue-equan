@@ -22,7 +22,13 @@
 		</div>
 	
 		<!-- 图片轮播 -->
-		<banner :listImg="listImg"  myClass="0"></banner>
+		<banner :listImg="listImg" myClass="0" hasPoint="true"></banner>
+	<!-- 	<div class="swiper-container swiper-container0">
+	        <div class="swiper-wrapper">
+	            <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
+	        </div>
+	        <div class="swiper-pagination swiper-pagination-white swiper-pagination0"></div>
+	    </div> -->
 
 		<ul class="nav-list flex-layout">
 			<li>
@@ -50,12 +56,7 @@
 				</a>
 			</li>
 		</ul>
-	
-		<pro-two></pro-two>
-		<pro-three></pro-three>
 
-		<custom-banner></custom-banner>
-			
 		<!-- <div class="activity-block">
 			<img src="../../assets/images/activities.png" class="acitvity-bg">
 			
@@ -69,6 +70,11 @@
 			</div>
 
 		</div> -->
+	    <pro-three></pro-three>
+	    <banner :listImg="adsImg" myClass="-c1"></banner>
+		<pro-two></pro-two>
+		
+		
 		<transition name="router-slid" mode="out-in">
 	        <router-view></router-view>
 	    </transition>
@@ -77,51 +83,88 @@
 	</div>
 </template>
 <script>
-import {data} from '/api/api'
-import Banner from '/components/bannerPic'
-import FooterNav from '/components/proThree'
+import {banner, ads} from '/api/api'
+import Banner from '/components/swiperDefault'
+import FooterNav from '/components/footer'
 import proTwo from '/components/proTwo'
-import proThree from '/components/footer'
-import customBanner from '/components/customBanner'
+import proThree from '/components/proThree'
+import Swiper from 'swiper';
+// import customBanner from '/components/swiperCustom'
 
 import a from '/assets/images/banner1.jpg'
 import b from '/assets/images/banner1.jpg'
 import c from '/assets/images/banner1.jpg'
+
 export default {
 	name: 'home',
 	data() {
 		return {
 			list: [],
 			showLoading: true,
-			customID: '#ban1',
 			account: 5888, //e币
-			listImg: [{
-		          url: a
-		      }, {
-		          url: b
-		      }, {
-		          url: c
-		      }]
+			// listImg: [{
+			// 	url: a
+			// },{
+			// 	url: b
+			// },{
+			// 	url: c
+			// }],
+			adsImg: [],
+			listImg: []
 		}
 	},
-	mounted() {
-		// this._initData();
+	created() {
+		this._initData();
 	},
 	components: {
-	    Banner, proTwo, proThree, FooterNav, customBanner
+	   Banner, proTwo, proThree, FooterNav
 	},
 	methods: {
-		// _initData() {
-		// 	data().then(res => {
-		// 		this.list = res.list;
-		// 	})
-		// }
+		_initData() {
+			banner().then(res => {
+				this.listImg = res;
+				
+			}).then(()=>{
+				var swiper0 = new Swiper('.swiper-container0', {
+		            pagination: '.swiper-pagination0',
+		            paginationClickable: true,
+		            loop: true,
+		            // speed: 600,
+		            autoplay:3000,
+		            autoplayDisableOnInteraction:false
+		        });
+			}) 
+
+			ads().then(res => {
+				this.adsImg = res;
+			}).then(() => {
+				var swiperc1 = new Swiper('.swiper-container-c1', {
+		            slidesPerView: 'auto',
+		            centeredSlides: true,
+		            paginationClickable: true,
+		            spaceBetween: 16,
+		            loop: true,
+		            autoplay:4500,
+		            autoplayDisableOnInteraction:false
+		        });
+        
+			})
+		}
 	}
 
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../assets/scss/var.scss';
+.swiper-pagination {
+    bottom: $banBottom !important;
+}
+.swiper-container-c1 {
+	height: pxTorem(180) !important;
+	.swiper-slide {
+		width: pxTorem(640) !important;
+	}
+}
 .bg-account {
 	background: $bkg-theme;
 	padding: 0 4px;
@@ -166,6 +209,7 @@ export default {
     border-top-right-radius: $banBottom;
 	img {
 		width: pxTorem(88);
+		margin: 0 auto;
 	}
 }
 .activity-block {

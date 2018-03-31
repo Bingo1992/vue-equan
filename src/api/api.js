@@ -23,5 +23,7 @@ const fetch = (type,url,data) => {
 	})
 };
 
+export const banner = (params) =>  fetch('get','/banner',params);
+export const ads = (params) =>  fetch('get','/ads',params);
 export const proList = (params) =>  fetch('get','/proList',params);
 export const proDetail = (params) =>  fetch('get','/proDetail',params);

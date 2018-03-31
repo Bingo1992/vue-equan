@@ -15,12 +15,13 @@
 .bg-info {background-color: #10AEFF;}
 
 [class^="label-"] {
-    font-size: $md-font;
+    font-size: 10px;
     color: #fff;
     border-radius: 2px;
-    line-height: 20px;
-    padding: 0 6px;
+    line-height: 16px;
+    padding: 0 4px;
     display: inline-block;
+    vertical-align: middle;
 }
 .label-theme {background: $bkg-theme;}
 .label-blue {background: $bkg-blue;}
@@ -113,7 +114,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 }
 .children-view {
   @extend %fixed-body;
-  z-index: 5;
+  z-index: 6;
   background-color: #fff;
 }
 // --public-style---
@@ -126,7 +127,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 }
 
 .nowrap-2 {
-    line-height: 20px !important;
+    line-height: 20px;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -526,26 +527,47 @@ li.vcode-box{
 .pro-list {
     overflow: hidden;
     li {
-        padding: 0 pxTorem(4);
         float: left;
     }
-    h5 {
-        padding: 6px 0 2px 0;
-    }
+    
     .icon-coin {
-        font-size: 14px;
+        font-size: 12px;
         margin-right: -4px;
         margin-top: -2px;
     }
+    h5 {
+        padding-top: .3rem;
+        line-height: pxTorem(44);
+    }
+}
+.price-small {
+    line-height: 1rem;
+    padding: 2px 0 8px 0;
     s {
         font-size: 10px;
         padding-left: 2px;
     }
+    .font-orange {font-size: 12px;}
+}
+.price-big {
+    line-height: 1.2rem;
+    s {
+        font-size: 12px;
+        padding-left: 2px;
+    }
+    .font-orange {font-size: 14px;}
+    .icon-coin {
+        font-size: 14px;
+    }
 }
 .label {
+    overflow: hidden;
     [class^="label-"] {
-        margin-right: 2px;
-        margin-top: 8px;
+        margin-top: .4rem;
+        line-height: .8rem;
+        margin-right: 6px;
+        float: left;
+        
     }
 }
 

@@ -1,39 +1,36 @@
 <template>
-  <div :class="['swiper-container','swiper-container'+myClass]">
+  <div :class="['swiper-container','swiper-container-c'+myClass]">
         <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
         </div>
-        <div :class="['swiper-pagination', 'swiper-pagination-white', 'swiper-pagination'+myClass]"></div>
+        <!-- <div :class="['swiper-pagination', 'swiper-pagination-white', 'swiper-pagination-c'+myClass]"></div> -->
     </div>
 </template>
 
 
 <script>
 
-import Swiper from 'swiper';
+// import Swiper from 'swiper';
 import '../assets/css/swiper.min.css';
 export default {
     name: 'swiper-container',
     data () {
       return {
-         len: 2,
-         swiper: null
+         // len: 2
       }
     },
     props: ['listImg','myClass'],
     mounted() {
-        for(var i = 0; i < this.len; i++) {
-           var swiper = new Swiper('.swiper-container'+i, {
-                pagination: '.swiper-pagination'+i,
-                paginationClickable: true,
-                loop: true,
-                speed: 600,
-                autoplay: 4000,
-                onTouchEnd: function() {
-                    swiper.startAutoplay()
-                }
-            });
-        }
+        
+        // var swiper = new Swiper('.swiper-container', {
+        //     pagination: '.swiper-pagination',
+        //     slidesPerView: 'auto',
+        //     centeredSlides: true,
+        //     paginationClickable: true,
+        //     spaceBetween: 30
+        // });
+        
+      
             
     },   
 }
@@ -44,7 +41,7 @@ export default {
 @import '../assets/scss/var.scss';
 .swiper-container {
     width: 100%;
-    height: pxTorem(348);
+    height: pxTorem(180);
     .swiper-wrapper {
         width: 100%;
         height: 100%;
@@ -52,7 +49,8 @@ export default {
     .swiper-slide {
         background-position: center;
         background-size: cover;
-        width: 100%;
+        width: pxTorem(640);
+        // margin: 0 pxTorem(24); 
         height: 100%;
         // background-size: 100% 100%;
         object-fit:fill;
@@ -61,14 +59,9 @@ export default {
             height: 100%;
         }
     }
-    // .swiper-pagination-bullet {
-    //     width: .36rem;
-    //     height: .36rem;
-    //     display: inline-block;
-    // }
 }
-.swiper-pagination {
-    bottom: $banBottom !important;
-}
+// .swiper-pagination {
+//     bottom: $banBottom !important;
+// }
 
 </style>

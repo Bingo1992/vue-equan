@@ -3,7 +3,7 @@
         <loading v-if="showLoading"></loading>
         <div v-if="!showLoading" class="banner-b">
             <!-- 图片轮播 -->
-            <banner :listImg="proDetail.imageList" myClass="1"></banner>
+            <banner :listImg="proDetail.imageList" myClass="1"  hasPoint="true"></banner>
             <div :key="proDetail.id">
                 <div class="pro-list pdl pdr">
                     <div class="label">
@@ -13,8 +13,8 @@
                     </div>
                     
                     <h5 class="pro-title nowrap-2">{{proDetail.proTitle}}</h5>
-                    <div class="pdb">
-                        <span class="font-orange">
+                    <div class="price">
+                        <span class="font-orange lg-font">
                             <i class="icon-coin"></i>
                             {{proDetail.price}}
                         </span>
@@ -22,18 +22,10 @@
                     </div>
                 </div>   
             </div>
-
-            <!-- 产品介绍 -->
-          <!--   <div class="bg-show title-bar">
-               <h4>产品介绍</h4>
-               <div class="rich-box" >
-                   <img v-for="imgSrc in imglistSrc" :src="imgSrc">
-               </div>
-            </div> -->
         </div>
-        <!-- -banner- -->
+       
         <div class="fixed-bottom">
-            <div class="two-btn border-top">
+            <div class="bttomBtn two-btn border-top">
                 <router-link class="backNav border-right" to="/cart">
                     <i class="icon-cart"></i>
                     <!-- <span v-if="cartNum != 0" class="circlePoint">{{cartNum}}</span> -->
@@ -51,13 +43,12 @@
 
 // import {mapState,mapMutations} from 'vuex'
 import {proDetail} from '/api/api'
-import Banner from '/components/bannerPic'
+import Banner from '/components/swiperDefault'
 import Loading from '/components/loading'
 export default {
 	data(){
 		return {
 			proDetail: [],
-            myID: '#ban2',
 			imglistSrc:[],
             showLoading: true,
             showAttrDialog: false,
@@ -80,50 +71,42 @@ export default {
 	mounted() {
 		this._initData();
     },
-	methods: {
-        
+	methods: {  
 		_initData() {
-            proDetail().then(res => {
+            proDetail(this.$route.query.id).then(res => {
                 this.proDetail = res;
                 this.showLoading = false;
+            }).then(() => {
+                var swiper1 = new Swiper('.swiper-container1', {
+                    pagination: '.swiper-pagination1',
+                    paginationClickable: true,
+                    loop: true,
+                    autoplay:3000,
+                    autoplayDisableOnInteraction:false
+                });
             })
-			// this.proDetail = await proDetail(this.$route.params.id);
-            // this.attrLen = this.proDetail.attr.length;
-   //          this.price = this.proDetail.price[0];//初始化价格
-   //          this.attrName = '';
-   //          this.attrArray = [];//将商品属性数组置空
-   //          this.amount = 1;
-			// this.imglistSrc = this.proDetail.detailImg;
-   //          this.showLoading = false;
-            // this.cartNum = (this.userInfo)
 		},
        
 	},
     watch:{
         '$route':'_initData'
-        // $route(to){
-        //     let reg = /productDetail\/\d+/;
-        //     if(reg.test(to.path)){
-        //         let categotyId = this.$route.params.id || 0;
-        //         this.initData(categotyId);
-        //     }
-        // }   
     }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../../assets/scss/var.scss";
-.swiper-container {
+.swiper-container1 {
     height: pxTorem(750);
+    .swiper-pagination-bullet-active{
+        background: #717171 !important;
+    }
+    .swiper-pagination-bullet {
+        opacity: 1 !important;
+    }
 }
-.swiper-pagination-bullet-active {
-    background: #717171 !important;
-}
-.swiper-pagination-bullet {
-    opacity: 1;
-}
+
 .backNav {
     flex-direction: column;
     background-color: #fafafa;
@@ -145,9 +128,16 @@ export default {
     font-size: 16px;
     // line-height: 40px;
 }
-.two-btn {
+.bttomBtn {
     a {
         flex: auto;
+    }
+}
+.price {
+    .lg-font {
+        font-size: 18px !important;
+        padding-right: 6px;
+        .icon-coin {font-size: 16px;}
     }
 }
 </style>
