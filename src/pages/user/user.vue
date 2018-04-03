@@ -10,8 +10,10 @@
 				<a class="btn-theme">点击</a>
 			</li>
 		</ul>
-
-		<footer-nav></footer-nav>	
+		<div class="fixed-bottom">
+			<footer-nav></footer-nav>	
+		</div>
+		
 	</div>
 </template>
 <script>

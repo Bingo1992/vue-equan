@@ -6,6 +6,7 @@ const Ticket = resolve => require(['/pages/ticket/ticket'], resolve);
 const User = resolve => require(['/pages/user/user'], resolve);
 const Cart = resolve => require(['/pages/cart/cart'], resolve);
 const ProDetail = resolve => require(['/pages/home/children/productDetail'], resolve);
+const OrderConfirm = resolve => require(['/pages/order/orderConfirm'], resolve);
  
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/user',
       component: User,
       meta: {title: '个人中心'}
+    },
+    {
+      path: '/orderConfirm',
+      component: OrderConfirm,
+      meta: {title: '订单确认'}
     }
   ]
 })

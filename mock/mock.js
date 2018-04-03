@@ -5,13 +5,34 @@ module.exports = function () {
     var Mock = require('mockjs');
     var Random = Mock.Random;
     return {
-        banner: [{
-            url: '../static/images/banner1.jpg'
-        }, {
-            url: '../static/images/banner1.jpg'
-        }, {
-            url: '../static/images/banner1.jpg'
-        }],
+        banner:{
+            "success": true,
+            "msg": "操作成功",
+            "reload": false,
+            "obj": [{
+                "id": 2,
+                "delFlag": 0,
+                "isNewRecord": false,
+                "name": "首页雨伞图",
+                "pic": "/banner/20180402/20180402181906_818.jpg",
+                "location": "index",
+                "url": "http://www.163.com",
+                "orderNum": 2,
+                "startTime": "2018-04-01 18:19:21",
+                "endTime": "2018-04-05 18:19:25"
+            }, {
+                "id": 1,
+                "delFlag": 0,
+                "isNewRecord": false,
+                "name": "11",
+                "pic": "/banner/20180402/20180402173738_458.jpg",
+                "location": "index",
+                "url": "http://www.baidu.com",
+                "orderNum": 1,
+                "startTime": "2018-04-01 17:28:40",
+                "endTime": "2018-04-26 17:28:43"
+            }]
+        },
         ads: [{
             url: '../static/images/ban1.png'
         }, {
@@ -40,16 +61,54 @@ module.exports = function () {
         proDetail: Mock.mock({
             'id': 111,
             'imageList|2-5': [{
-                'url': Random.image('640x640') 
+                'pic': '/banner/20180402/20180402173738_458.jpg'
             }],
             'label1': /满99-10|/,
             'label2': /券|/,
             'label3': /特价|/,
             'proTitle': Random.ctitle(13, 28),
             'price|60-900': 1,
-            'marketPrice|65-988': 1
+            'marketPrice|65-988': 1,
+            'detailImg': [{
+                'pic': '/banner/20180402/20180402173738_458.jpg'
+             }, {
+                'pic': '/banner/20180402/20180402181906_818.jpg',
+             }],
+             'desTitle': Random.ctitle(5, 8),
+             'desText': Random.ctitle(25,60)
            
-        })
+        }),
+        cartList: Mock.mock({
+            'status': '1',
+            'result|3-6': [{
+                'proID|+1': 1,
+                'proImg': Random.image('200x200'),
+                'proName|+1': Random.ctitle(13, 28),
+                'proNum|1-5': 1,
+                'proPrice|60-900': 1,
+                'marketPrice|65-988': 1
+                'check': false
+            }]
+        }),
+        editCart: {},
+        delCart: {},
+        editCheckAll: {},
+        address: Mock.mock({
+            'result|3': [{
+                'proID|+1': 1,
+                'name|+1': Random.name(),
+                'mobile|+1': /^(13[0-9]|15[0-9]|18[0,5-9]|14[5|7])\d{8}$/,
+                'province|+1': Random.province(),
+                'city|+1': Random.city(),
+                'region|+1': Random.region(),
+                'address_detail|+1': Random.ctitle(13, 28),
+                'check|1-2': true
+            }]
+        }),
+        delAddress: {},
+        addAddress: {},
+        updateAddress: {},
+        delAddress: {}
     } 
     // return {
        

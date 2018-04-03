@@ -1,17 +1,17 @@
 <template>
   <div :class="['swiper-container','swiper-container'+myClass]">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
+            <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + getImgPath(item.pic) + ')' }"></div>
         </div>
-        <div v-if="hasPoint" :class="['swiper-pagination', 'swiper-pagination-white', 'swiper-pagination'+myClass]"></div>
+        <div v-if="hasPoint" :class="['swiper-pagination', 'swiper-pagination-white', 'swiper-pagination' + myClass]"></div>
     </div>
 </template>
 
 
 <script>
-
 // import Swiper from 'swiper';
-import '/assets/css/swiper.min.css';
+import { getImgPath } from './mixin'
+import '/assets/css/swiper.min.css' 
 export default {
     name: 'swiper-container',
     data () {
@@ -19,6 +19,7 @@ export default {
       }
     },
     props: ['listImg','myClass','hasPoint'],
+    mixins: [getImgPath],
     mounted() {
         // var swiper0 = new Swiper('.swiper-container0', {
         //     pagination: '.swiper-pagination0',

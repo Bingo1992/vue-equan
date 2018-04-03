@@ -23,13 +23,7 @@
 	
 		<!-- 图片轮播 -->
 		<banner :listImg="listImg" myClass="0" hasPoint="true"></banner>
-	<!-- 	<div class="swiper-container swiper-container0">
-	        <div class="swiper-wrapper">
-	            <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
-	        </div>
-	        <div class="swiper-pagination swiper-pagination-white swiper-pagination0"></div>
-	    </div> -->
-
+	
 		<ul class="nav-list flex-layout">
 			<li>
 				<a href="#">
@@ -59,7 +53,6 @@
 
 		<!-- <div class="activity-block">
 			<img src="../../assets/images/activities.png" class="acitvity-bg">
-			
 			<div class="activity-list">
 				<h3 class="activity-title"><span>活动专区</span></h3>
 				<ul>
@@ -68,7 +61,6 @@
 					</li>
 				</ul>
 			</div>
-
 		</div> -->
 	    <pro-three></pro-three>
 	    <banner :listImg="adsImg" myClass="-c1"></banner>
@@ -78,7 +70,10 @@
 		<transition name="router-slid" mode="out-in">
 	        <router-view></router-view>
 	    </transition>
-		<footer-nav></footer-nav>
+	    <div class="fixed-bottom">
+	    	<footer-nav></footer-nav>
+	    </div>
+		
 		 
 	</div>
 </template>
@@ -88,12 +83,7 @@ import Banner from '/components/swiperDefault'
 import FooterNav from '/components/footer'
 import proTwo from '/components/proTwo'
 import proThree from '/components/proThree'
-import Swiper from 'swiper';
-// import customBanner from '/components/swiperCustom'
-
-import a from '/assets/images/banner1.jpg'
-import b from '/assets/images/banner1.jpg'
-import c from '/assets/images/banner1.jpg'
+import Swiper from 'swiper'
 
 export default {
 	name: 'home',
@@ -122,21 +112,20 @@ export default {
 	methods: {
 		_initData() {
 			banner().then(res => {
-				this.listImg = res;
-				
+				this.listImg = res.obj;
 			}).then(()=>{
 				var swiper0 = new Swiper('.swiper-container0', {
 		            pagination: '.swiper-pagination0',
 		            paginationClickable: true,
 		            loop: true,
 		            // speed: 600,
-		            autoplay:3000,
-		            autoplayDisableOnInteraction:false
+		            autoplay: 3000,
+		            autoplayDisableOnInteraction: false
 		        });
 			}) 
 
-			ads().then(res => {
-				this.adsImg = res;
+			banner().then(res => {
+				this.adsImg = res.obj;
 			}).then(() => {
 				var swiperc1 = new Swiper('.swiper-container-c1', {
 		            slidesPerView: 'auto',
@@ -144,8 +133,8 @@ export default {
 		            paginationClickable: true,
 		            spaceBetween: 16,
 		            loop: true,
-		            autoplay:4500,
-		            autoplayDisableOnInteraction:false
+		            autoplay: 4500,
+		            autoplayDisableOnInteraction: false
 		        });
         
 			})
@@ -163,6 +152,7 @@ export default {
 	height: pxTorem(180) !important;
 	.swiper-slide {
 		width: pxTorem(640) !important;
+		border-radius: 12px;
 	}
 }
 .bg-account {

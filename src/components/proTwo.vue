@@ -57,8 +57,8 @@ export default {
 	padding: 0 pxTorem(14);	
 	li {
 		width: 50%;
-		padding: 0 pxTorem(10)  pxTorem(20) pxTorem(10);
-		height: pxTorem(353) + 5.3;
+		padding: 0 pxTorem(10);
+		height: pxTorem(353) + 4.8;
 	}
 
 }
