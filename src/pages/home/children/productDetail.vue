@@ -114,7 +114,7 @@ export default {
        
 	},
     watch:{
-        '$route':'_initData'
+        // '$route':'_initData'
     }
 
 }

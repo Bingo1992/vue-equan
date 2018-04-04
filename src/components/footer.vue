@@ -157,9 +157,6 @@ export default {
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
   } 
-  [class~='-2'] {
-    opacity: 1;
-  }
 }
     
 </style>

@@ -68,7 +68,7 @@
 
 
         <div class="fixed-bottom">
-        <div v-if="cartList.length > 0" class="cal-banner list-box border-top">
+          <div v-if="cartList.length > 0" class="cal-banner list-box border-top">
               <div class="list-info-v">
                   <p>
                     应付现金：

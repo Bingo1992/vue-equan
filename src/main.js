@@ -12,7 +12,7 @@ import './utils/rem'
 
 // require('./mock');
 Vue.use(VueLazyload, {
-  loading: '/static/images/load.gif'
+  loading: '/static/images/loading.png'
 })
 
 Vue.config.productionTip = false

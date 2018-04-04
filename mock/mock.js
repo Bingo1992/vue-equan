@@ -86,7 +86,7 @@ module.exports = function () {
                 'proName|+1': Random.ctitle(13, 28),
                 'proNum|1-5': 1,
                 'proPrice|60-900': 1,
-                'marketPrice|65-988': 1
+                'marketPrice|65-988': 1,
                 'check': false
             }]
         }),

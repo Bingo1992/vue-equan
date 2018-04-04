@@ -51,17 +51,17 @@
 			</li>
 		</ul>
 
-		<!-- <div class="activity-block">
+		<div class="activity-block">
 			<img src="../../assets/images/activities.png" class="acitvity-bg">
 			<div class="activity-list">
 				<h3 class="activity-title"><span>活动专区</span></h3>
 				<ul>
-					<li v-for="(item, i) in sortList">
+					<li>
 						 
 					</li>
 				</ul>
 			</div>
-		</div> -->
+		</div>
 	    <pro-three></pro-three>
 	    <banner :listImg="adsImg" myClass="-c1"></banner>
 		<pro-two></pro-two>
@@ -70,6 +70,7 @@
 		<transition name="router-slid" mode="out-in">
 	        <router-view></router-view>
 	    </transition>
+
 	    <div class="fixed-bottom">
 	    	<footer-nav></footer-nav>
 	    </div>
@@ -113,12 +114,11 @@ export default {
 		_initData() {
 			banner().then(res => {
 				this.listImg = res.obj;
-			}).then(()=>{
+			}).then(() => {
 				var swiper0 = new Swiper('.swiper-container0', {
 		            pagination: '.swiper-pagination0',
 		            paginationClickable: true,
 		            loop: true,
-		            // speed: 600,
 		            autoplay: 3000,
 		            autoplayDisableOnInteraction: false
 		        });
@@ -222,6 +222,7 @@ export default {
 	display: inline-block;
 	span {
 		display: inline-block;
+		vertical-align: middle;
 	}
 	&:before, &:after {
 		content: '.';
