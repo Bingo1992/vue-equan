@@ -9,7 +9,9 @@ const state = {
 	cartList: [], //购物车
 	checkID: [],//勾选的ID
 	choosedAddress: null,//选择地址
-	addressIndex: null,//选择地址的索引值
+	addressIndex: 0,//选择地址的索引值
+	sortProIndex: 0,//商品分类筛选的索引
+	sortPro: '全部分类'//商品分类筛选内容
 }
 
 export default new Vuex.Store({

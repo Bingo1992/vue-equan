@@ -1,9 +1,8 @@
 <template>
   <div>
-    <loading v-if="showLoading"></loading>
+    <!-- <loading v-if="showLoading"></loading> -->
     
-    <div v-if="!showLoading" class="cart banner-bt-2">
-
+    <div class="cart banner-bt-2">
        <div v-if="!cartList || cartList.length == 0" class="nothing">
         <img src="../../assets/images/nothing.png" >
         <h4>购物车暂无内容</h4>
@@ -85,7 +84,7 @@
 </template>
 
 <script>
-import loading from '/components/loading'
+// import loading from '/components/loading'
 import FooterNav from '/components/footer'
 import confirmDialog from '/components/confirmDialog'
 import {getCartList, editCart,delCart,editCheckAll} from '/api/api'
@@ -95,7 +94,7 @@ import {mapState,mapMutations} from 'vuex'
 export default {
   data () {
     return { 
-      showLoading: true,
+      // showLoading: true,
       edit: false,//是否编辑
       checkID: [],//被选中的商品ID
       isCheckAll: true,//全选
@@ -103,16 +102,15 @@ export default {
       showDialog: false,
       confirmTitle:'',
       confirmText:'',
-      currentID: '',//点击的当前元素id
       checks:[],
       cartNum: 0//购物车数量
     }
   },
   components: {
-    FooterNav, loading, confirmDialog
+    FooterNav, confirmDialog
   },
   mounted() {
-      this._initData();
+      // this._initData();
   },
   computed: {
     ...mapState([
@@ -150,17 +148,21 @@ export default {
     // 勾选的数量
     checkedCount(){
       var i = 0;
-       this.cartList && this.cartList.forEach((item) => {
-          if(item.check) i++;  
-       });
-       return Number(i);
+      this.checkID = [];
+      this.cartList && this.cartList.forEach((item) => {
+          if(item.check) {
+            i++; 
+            this.checkID.push(item.proID); 
+          }
+      });
+      return Number(i);
     }
   },
   methods: {
     ...mapMutations([
         'INIT_BUYCART', 'EDIT_CART', 'DELETE_CART'
     ]),
-    _initData() {
+    // _initData() {
       // getCartList().then(res => {
       //     if(res.status === '1') {
       //       setStore('buyCart', res.result);
@@ -169,8 +171,8 @@ export default {
       //   this.INIT_BUYCART();
       //   this.showLoading = false;
       // });
-      this.showLoading = false;
-    },
+      // this.showLoading = false;
+    // },
     // 修改购物车
     _editCart(proID,type,check) {
        editCart({proID}).then( res => {
@@ -201,15 +203,14 @@ export default {
       }
     },
     //显示遮罩
-    showConfirmDialog(id) {
+    showConfirmDialog() {
       this.showDialog = true;
       this.confirmText = "确定删除购物车所选内容吗？"
-      this.currentID = id;
     },
     //删除购物车
     confirmBtn() {
-        delCart(this.currentID).then( res => {
-           this.DELETE_CART(this.currentID);
+        delCart(this.checkID).then( res => {
+           this.DELETE_CART(this.checkID);
          });
     },
     //关闭遮罩
@@ -223,7 +224,7 @@ export default {
  
 }
 </script>
-
+ 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import '../../assets/scss/var.scss';
@@ -261,11 +262,13 @@ export default {
    }
 }
 .nothing {
-    top: 0;
-    bottom: 99px;
+  position: fixed;
+  top: 0;
+  bottom: 50px;
 }
 .btn-border.dis-btn {
   color: #999;
   border: 1px solid #e0e0e0;
+  pointer-events: none;
 }
 </style>

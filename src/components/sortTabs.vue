@@ -1,0 +1,194 @@
+<template>
+	<div>
+		<!-- //排序，筛选 -->
+	    <div class="sort-box" v-if="sortIndex == 0">
+	        <ul class="box-cnt">
+	        	<li :class="{'active': sortProIndex==i}" v-for="(item, i) in sortList1" @click="getProSort(item.value, i)">
+	        		<span>{{item.value}}</span>
+	        		<span class="font-gray pdl">({{item.count}})</span>
+	        	</li>
+	           <!--  <li class="active"><span class="value">全部分类</span><span class="font-gray pdl">(3423)</span></li>
+	            <li><span class="value">汽车用品</span><span class="font-gray pdl">(453)</span></li>
+	            <li><span class="value">超市卡券</span><span class="font-gray pdl">(634)</span></li>
+	            <li><span class="value">汽车打蜡</span><span class="font-gray pdl">(432)</span></li>
+	            <li><span class="value">生活服务</span><span class="font-gray pdl">(967)</span></li> -->
+	        </ul>
+	    </div>
+		<div class="sort-box"  v-if="sortIndex == 1">
+	        <div class="box-cnt">
+	            <div>
+	                <span>价格区间</span>
+	                <div class="price-zone">
+	                    <input class="low" type="number" placeholder="最低价格" v-model="lowPrice">
+	                    <span>-</span>
+	                    <input class="high" type="number" placeholder="最高价格" v-model="highPrice">
+	                </div>
+	            </div>
+	            <div class="sort-price">
+	                <span>价格排序</span>
+	                <ul>
+	                    <li v-for="(item, i) in sortList2" :class="{'active': sortPriceIndex==i}" @click="getPriceSort(item, i)"><span>{{item}}</span></li>
+
+	                    <!-- <li><span class="value">价格从低到高</span></li> -->
+	                </ul>
+	            </div>
+	            <div class="flex-layout price-btn">
+	                <p class="btn-cancel" @click="resetBtn">重置</p>
+	                <p class="btn-sort-confirm btn-theme" @click="confirmBtn">确定</p>
+	            </div>
+	        </div>
+	    </div>
+
+	    <div class="ui-dialog" @click="closeDialog()"></div>
+
+	    <alert-tip v-if="showAlertTip" :alertText="alertText"></alert-tip>
+	</div>
+		
+</template>
+<script>
+import {mapState, mapMutations} from 'vuex'
+import {sortList} from '/api/api'
+import alertTip from '/components/alertTip'
+
+export default {
+	name: 'sortTabs',
+	data() {
+		return {
+			sortList1: [],
+			sortList2: ['价格从低到高', '价格从高到低'],
+			sortPriceIndex: null,//价格筛选索引
+			sortPrice: '价格',
+			lowPrice: null,
+			highPrice: null,
+			showAlertTip: false
+		}
+	},
+	props: ['sortIndex'],
+	created() {
+		this._initData();
+	},
+	components: {
+        alertTip
+      },
+	computed: {
+		...mapState(['sortProIndex'])
+	},
+	methods: {
+		...mapMutations(['CHOOSE_PROSORT']),
+		_initData() {
+			sortList().then(res => {
+				this.sortList1 = res;
+			});
+		},
+		closeDialog() {
+			this.$emit('closeDialog');
+		},
+		// 分类筛选
+		getProSort(value, i) {
+			this.CHOOSE_PROSORT({sortPro: value, index: i});
+			this.$emit('closeDialog');
+		},
+		// 价格筛选
+		getPriceSort(item, i) {
+			this.sortPriceIndex = i;
+			this.sortPrice = item;
+		},
+		// 确定按钮
+		confirmBtn() {
+			if(Number(this.lowPrice) > Number(this.highPrice)) {
+				this.showHideAlert('最低价不能高于最高价');
+			} else {
+				this.$emit('sortPrice', this.sortPrice);
+				this.$emit('closeDialog');
+			}
+		},
+		// 重置
+		resetBtn() {
+			this.lowPrice = null;
+			this.highPrice = null;
+			this.sortPriceIndex = null;
+			this.sortPrice = '价格';
+			this.$emit('sortPrice', this.sortPrice);
+		},
+		//显示弹窗
+        showHideAlert(text) { 
+            this.showAlertTip = true;
+            this.alertText = text;
+            setTimeout(() => {
+                this.showAlertTip = false;
+            }, 1500);
+        },
+
+	}
+}
+</script>
+<style lang="scss" scoped>
+@import '../assets/scss/var.scss';
+.ui-dialog {
+	@extend %fixed-body;
+	background: rgba(246,247,249,.95);
+	z-index: 3;
+}
+.sort-box {
+    position: fixed;
+    top: 83px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    z-index: 4;
+    // display: none;
+    .active, .active .font-gray {
+	    color: #2dd3c8 !important;
+	}
+}
+.box-cnt {
+    background-color: #fff;
+    position: relative;
+    z-index: 4;
+    line-height: 50px;
+    width: 100%;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+.sort-price .active{
+    background: #f2f3f5;   
+}
+.sort-price {
+	ul,li {
+		display: inline-block;
+	}
+	li {
+		display: inline-block;
+	    line-height: 30px;
+	    border-radius: 30px;
+	    padding: 0 10px;
+	    margin-left: 10px;
+	}
+}
+.price-zone {
+    display: inline-block;
+    margin-left: 10px;
+    input {
+	    height: 30px;
+	    line-height: 30px;
+	    width: 98px;
+	    border-radius: 2px;
+	    background-color: #f2f3f5;
+	    padding: 0 10px;
+	    display: inline-block;
+	    vertical-align: middle;
+	}
+}	
+.price-btn {
+    margin-left: -10px;
+    margin-top: 10px;
+    [class^='btn-'] {
+	    width: 50%;
+	    text-align: center;   
+	    line-height: 50px;
+	}
+	.btn-cancel {
+	    background-color: #eee;
+	}
+}
+</style>

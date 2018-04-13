@@ -1,90 +1,141 @@
 <template>
 	<div class="banner-bt">
-		<div class="fixed-top bg-show">
-			<div class="list-box border-bottom">
-				<div class="bg-account">
-					<div class="list-box">
-						<div class="list-info-h">
-							<i class="icon-coin"></i>
-							e币 {{account}}
+		<loading v-if="showLoading"></loading>
+		<div v-else>
+			<div class="fixed-top bg-show">
+				<div class="list-box border-bottom">
+					<div class="bg-account">
+						<div class="list-box">
+							<div class="list-info-h">
+								<i class="icon-coin"></i>
+								e币 {{account}}
+							</div>
+							<i class="icon-right"></i>
+						</div>	
+					</div>
+
+					<div class="search-bar list-info-h">
+						<div class="list-box">
+							<i class="icon-search"></i>
+							<input class="list-info-h" type="text" placeholder="请输入商品名称、品牌等">
 						</div>
-						<i class="icon-right"></i>
 					</div>	
 				</div>
-
-				<div class="search-bar list-info-h">
-					<div class="list-box">
-						<i class="icon-search"></i>
-						<input class="list-info-h" type="text" placeholder="请输入商品名称、品牌等">
-					</div>
-				</div>	
 			</div>
-		</div>
-	
-		<!-- 图片轮播 -->
-		<banner :listImg="listImg" myClass="0" hasPoint="true"></banner>
-	
-		<ul class="nav-list flex-layout">
-			<li>
-				<a href="#">
-					<img src="../../../static/images/1.png">
-					<p>e券优选</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="../../../static/images/2.png">
-					<p>超市卡券</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="../../../static/images/3.png">
-					<p>违章查办</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="../../../static/images/4.png">
-					<p>充值中心</p>
-				</a>
-			</li>
-		</ul>
-
-		<div class="activity-block">
-			<img src="../../assets/images/activities.png" class="acitvity-bg">
-			<div class="activity-list">
-				<h3 class="activity-title"><span>活动专区</span></h3>
-				<ul>
-					<li>
-						 
-					</li>
-				</ul>
-			</div>
-		</div>
-	    <pro-three></pro-three>
-	    <banner :listImg="adsImg" myClass="-c1"></banner>
-		<pro-two></pro-two>
 		
+			<!-- 图片轮播 -->
+			<banner :listImg="listImg" myClass="0" hasPoint="true"></banner>
 		
-		<transition name="router-slid" mode="out-in">
-	        <router-view></router-view>
-	    </transition>
+			<ul class="nav-list flex-layout">
+				<li>
+					<a href="#">
+						<img src="../../../static/images/1.png">
+						<p>e券优选</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="../../../static/images/2.png">
+						<p>超市卡券</p>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="../../../static/images/3.png">
+						<p>违章查办</p>
+					</a>
+				</li>
+				<li>
+					<router-link to="/rechargeCenter">
+						<img src="../../../static/images/4.png">
+						<p>充值中心</p>
+					</router-link>
+				</li>
+			</ul>
 
-	    <div class="fixed-bottom">
-	    	<footer-nav></footer-nav>
-	    </div>
+			<div class="activity-block">
+	            <img src="../../assets/images/activities.png" class="acitvity-bg">
+	            <div class="activity-list">
+	                <h3 class="activity-title"><span>活动专区</span></h3>
+	                <ul>
+	                    <li>
+	                        <router-link class="list-box" :to="{path: '/proList', query: {
+	                        	type: 2000}}">
+	                            <h3 class="font-red center-text">每周爆款</h3>
+	                            <p class="font-gray center-text">每周爆款随你挑</p>
+	                            <img class="act-img-2" src="../../assets/images/5.jpg">
+	                        </router-link> 
+	                    </li>
+	                    <li>
+	                        <router-link class="list-box" :to="{path: '/proList', query: {
+	                        	type: 2001}}">
+	                            <div class="list-info">
+	                                <h3 class="font-blue-2">车友必备</h3>
+	                                <p class="font-gray">带上它出去浪</p>
+	                            </div>
+	                            <img class="act-img" src="../../assets/images/1.jpg">    
+	                        </router-link> 
+	                    </li>
+	                    <li>
+	                       <router-link class="list-box" :to="{path: '/proList', query: {
+	                       	type: 2002}}">
+	                            <div class="list-info">
+	                                <h3 class="font-purple">数码控</h3>
+	                                <p class="font-gray">最新潮流都在这</p>
+	                            </div>
+	                            <img class="act-img" src="../../assets/images/2.jpg">    
+	                        </router-link> 
+	                    </li>
+	                    <li>
+	                       <router-link class="list-box" :to="{path: '/proList', query: {
+	                       	type: 2003}}">
+	                            <div class="list-info">
+	                                <h3 class="font-theme">运动达人</h3>
+	                                <p class="font-gray">运动保持年轻</p>
+	                            </div>
+	                            <img class="act-img" src="../../assets/images/3.jpg">    
+	                        </router-link> 
+	                    </li>
+	                    <li>
+	                        <router-link class="list-box" :to="{path: '/proList', query: {
+	                        	type: 2004}}">
+	                            <div class="list-info">
+	                                <h3 class="font-red-2">智慧萌娃</h3>
+	                                <p class="font-gray">要给孩子最好的</p>
+	                            </div>
+	                            <img class="act-img" src="../../assets/images/4.jpg">    
+	                        </router-link> 
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+
+		    <product :proList="proList1" proThree="true"></product>
+		    <banner :listImg="adsImg" myClass="-c1"></banner>
+			<product :proList="proList2"></product>
+			
+			
+			<transition name="router-slid" mode="out-in">
+		        <router-view></router-view>
+		    </transition>
+
+		    <div class="fixed-bottom">
+		    	<footer-nav></footer-nav>
+		    </div>
+			
+		</div>
 		
 		 
 	</div>
 </template>
 <script>
-import {banner, ads} from '/api/api'
+import {banner, ads, proList} from '/api/api'
 import Banner from '/components/swiperDefault'
+import loading from '/components/loading'
 import FooterNav from '/components/footer'
-import proTwo from '/components/proTwo'
-import proThree from '/components/proThree'
-import Swiper from 'swiper'
+import product from '/components/product'
+
+// import Swiper from 'swiper'
 
 export default {
 	name: 'home',
@@ -93,25 +144,28 @@ export default {
 			list: [],
 			showLoading: true,
 			account: 5888, //e币
-			// listImg: [{
-			// 	url: a
-			// },{
-			// 	url: b
-			// },{
-			// 	url: c
-			// }],
 			adsImg: [],
-			listImg: []
+			listImg: [],
+			proList1: [],
+			proList2: []
 		}
 	},
 	created() {
 		this._initData();
 	},
 	components: {
-	   Banner, proTwo, proThree, FooterNav
+	   Banner, product, FooterNav, loading
 	},
 	methods: {
 		_initData() {
+			proList().then(res => {
+				this.proList1 = res.list;
+				this.proList2 = res.list;
+				this.showLoading = false;
+			});
+			// proList().then(res => {
+			// 	this.proList2 = res.list;
+			// });
 			banner().then(res => {
 				this.listImg = res.obj;
 			}).then(() => {
@@ -160,6 +214,7 @@ export default {
 	padding: 0 4px;
 	@include semicircle;
 	color: #fff;
+	margin-right: 10px;
 	[class^="icon-"] {
 		color: #fff;
 		font-size: 14px;	
@@ -172,23 +227,6 @@ export default {
 	}
 }
 
-.search-bar {
-	margin-left: 10px;
-	background-color: #f2f3f5;
-	@include semicircle;
-	padding: 0 10px;
-	.icon-search {
-		font-size: 20px; 
-		color: #d7d8d9;
-		font-weight: bold;
-		padding-right: 4px;
-	}
-	.list-info-h {
-		overflow: hidden;
-	    white-space: nowrap;
-	    text-overflow: ellipsis;
-	}
-}
 .nav-list {
 	position: relative;
 	top: - $banBottom;
@@ -205,7 +243,7 @@ export default {
 .activity-block {
 	position: relative;
 	background: -webkit-linear-gradient(top, #9af6f1, #ccfdff);
-	height: pxTorem(750);
+	// height: pxTorem(750);
 }
 .acitvity-bg {
 	position: absolute;
@@ -244,6 +282,33 @@ export default {
 .activity-list {
 	position: relative;
 	z-index: 2;
+	ul {
+		padding: 0 .5rem 1rem .5rem;
+	    overflow: hidden;
+	    width: 100%;
+	    box-sizing: border-box;
+	    position: relative;
+	}
+	a {
+		background-color: #fff;
+	    height: 4.65rem;
+	    box-sizing: border-box;
+	}
+	li {
+		box-sizing: border-box;
+	    width: 50%;
+	    float: left;
+	    padding: .1rem;
+	    &:first-child a {
+	    	height: 9.46rem;
+		    display: block;
+		    padding: 10px;
+	    }
+	}
+	
 }
-
+.act-img {
+    width: auto;
+    height: 3.5rem;
+}
 </style>

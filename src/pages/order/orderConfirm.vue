@@ -56,10 +56,18 @@
             </div>
             <ul>
                 <li class="list-box">
-                 <img class="list-img" src="../../assets/images/chat.png" style="height:40px">
+                 <!-- <img  src="../../assets/images/chat.png" style="width:auto;height:40px"> -->
+                  <p class="list-info-h">e币支付</p>
+                   <label class="checkbox">
+                      <input type="radio" name="type" checked>
+                      <i class="icon-hook"></i>
+                  </label>
+                </li>
+                <li class="list-box">
+                 <!-- <img  src="../../assets/images/chat.png" style="width:auto;height:40px"> -->
                   <p class="list-info-h">微信支付</p>
                    <label class="checkbox">
-                      <input type="radio" checked readonly>
+                      <input type="radio" name="type">
                       <i class="icon-hook"></i>
                   </label>
                 </li>
@@ -140,7 +148,6 @@
         _initData() { 
            if (this.$route.query.skuId) {
                 this.cartList = JSON.parse(getStore('buyPro'));
-                console.log(this.cartList)
             } else {
                 // this._getCartList();
                 // 测试环境使用
@@ -149,19 +156,20 @@
             this._initAddress();    
         },
          // 获取地址
-         _initAddress() {
-            addressList().then(res => {
-                this.address = res.result;
-            }).then(() => {
-              if(this.address.length > 0){
-                  this.address.forEach((ads, index) => {
-                      if(ads.check){
-                          this.CHOOSE_ADDRESS(ads);
-                      }
-                  });
-              }
-            });
-              
+        async  _initAddress() {
+            if(!this.choosedAddress) {
+              addressList().then(res => {
+                  this.address = res;
+                  if(this.address.length > 0){
+                      this.address.forEach((address, index) => {
+                          if(address.check){
+                              this.CHOOSE_ADDRESS({address,index});
+                          }
+                      });
+                  }
+              })
+             
+            }
         },
         // 购物车数据
         _getCartList () {

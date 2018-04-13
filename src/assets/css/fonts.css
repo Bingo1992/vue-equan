@@ -1,12 +1,12 @@
 @font-face {
-    font-family: 'icomoon';
-    src:    url('../fonts/icomoon.eot?hvkz3l');
-    src:    url('../fonts/icomoon.eot?hvkz3l#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon.ttf?hvkz3l') format('truetype'),
-        url('../fonts/icomoon.woff?hvkz3l') format('woff'),
-        url('../fonts/icomoon.svg?hvkz3l#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?fcp2pj');
+  src:  url('../fonts/icomoon.eot?fcp2pj#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?fcp2pj') format('truetype'),
+    url('../fonts/icomoon.woff?fcp2pj') format('woff'),
+    url('../fonts/icomoon.svg?fcp2pj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -23,6 +23,15 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.icon-top:before {
+  content: "\e91d";
+}
+.icon-arrow-down:before {
+  content: "\e91f";
+}
+.icon-arrow-up:before {
+  content: "\e922";
 }
 .icon-user:before {
   content: "\e900";

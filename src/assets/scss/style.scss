@@ -3,8 +3,12 @@
 
 [class^="font-"] {font-size: $md-font;}
 .font-theme {color: $color-theme !important;}
+.font-green {color: #6ec884;}
 .font-yellow {color: #fdb235 !important;}
 .font-red {color:#ee5050 !important;}
+.font-blue-2 {color: #069ffc;}
+.font-purple {color: #8441ff;}
+.font-red-2 {color: #ff6289;}
 .font-orange {color: #fe5625 !important;}
 .font-gray {color: $color-gray !important;}
 .font-blue {color:#68839f !important;}
@@ -40,6 +44,7 @@
 .center-text {text-align: center;}
 .right-text {text-align: right;} 
 .banner-b {margin-bottom: 50px;}
+// .banner-t {margin-top: 100px;}
 .banner-bt {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -53,7 +58,7 @@
 }
 
 .getmore {
-    padding-bottom: $bgMargin;
+    padding-bottom: $gauge;
     text-align: center;
     color: $color-gray;
     font-size: $md-font;
@@ -71,6 +76,11 @@
 }
 .btn-theme {
     background: $bkg-theme;
+    &.btn-normal {
+        padding: 0 10px;
+        border-radius: 2px;
+        @include height(32px);
+    }
 }
 // .btn-green {
 //     background-color: #6ec884;
@@ -298,6 +308,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     align-items: center;  
     box-sizing: border-box;
     padding: $gauge;
+    width: 100%;
     .list-box {
         padding: 0;
     }
@@ -305,8 +316,9 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
 
 .list-img {
     position: relative;
-    width: auto;
+    width: 80px;
     height: 80px;
+    object-fit: fill;
     margin-right: $gauge;
 }
 
@@ -356,8 +368,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
         padding-right: 4px;
     }
     i {
-        @include circle(20px);
-        border: 1px solid #999;
+        font-size: 22px;
         color: #999;
     }
 }
@@ -449,7 +460,7 @@ i.icon-right,i.icon-up,i.icon-down,i.icon-left {
     }
 }
 .nothing,.result {
-    position: fixed;
+    // position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -529,11 +540,13 @@ li.vcode-box{
         justify-content: center;
         align-items:center;
     }
+    
+}
+.ui-dialog {
     .btn-cancel,.btn-theme {
         border-radius: 4px;
     }
 }
-
 // 数量加减
 .minus,.plus {
     @include btnRadius(28px);
@@ -574,9 +587,8 @@ li.vcode-box{
         margin-right: -4px;
         margin-top: -2px;
     }
-    h5 {
-        padding-top: .3rem;
-        line-height: pxTorem(44);
+    img {
+        object-fit: fill;
     }
 }
 .price-small {
@@ -612,6 +624,24 @@ li.vcode-box{
         
     }
 }
+
+.search-bar {
+    background-color: #f2f3f5;
+    @include semicircle;
+    padding: 0 10px;
+    box-sizing: border-box;
+    .icon-search {
+        font-size: 20px; 
+        color: #d7d8d9;
+        font-weight: bold;
+        padding-right: 4px;
+    }
+    .list-info-h {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
 // 结算部分
 .cal-banner {
   background-color: #fafafa;
@@ -629,7 +659,6 @@ li.vcode-box{
   }
 }
 /*放最后*/
-
 .router-slid-enter-active, .router-slid-leave-active {
     transition: all .4s;
 }
@@ -639,4 +668,4 @@ li.vcode-box{
 }
 .show {display: block !important;}
 .hide {display: none !important;}
-.disbtn {pointer-events:none;background-color: #ccc;}
+.disbtn {pointer-events:none;background: #ccc;}

@@ -1,7 +1,7 @@
 <template>
   <div :class="['swiper-container','swiper-container'+myClass]">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + getImgPath(item.pic) + ')' }"></div>
+            <a :href="item.url" class="swiper-slide" v-for="item in listImg" :style="{ backgroundImage: 'url(' + getImgPath(item.pic) + ')' }"></a>
         </div>
         <div v-if="hasPoint" :class="['swiper-pagination', 'swiper-pagination-white', 'swiper-pagination' + myClass]"></div>
     </div>
@@ -9,7 +9,7 @@
 
 
 <script>
-// import Swiper from 'swiper';
+import Swiper from 'swiper'
 import { getImgPath } from './mixin'
 import '/assets/css/swiper.min.css' 
 export default {

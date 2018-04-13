@@ -10,26 +10,26 @@
     </li> -->
     <li>
       <router-link to="/home">
-        <i :class="['icon-home', activeIndex===0?'icon-home-2':'' ]"></i>
+        <i :class="[$route.path.indexOf('home') !== -1? 'icon-home-2':'icon-home']"></i>
         <p>首页</p>
       </router-link>
     </li>
     <li>
       <router-link to="/cart">
-        <i :class="['icon-cart', activeIndex===1?'icon-cart-2':'' ]"></i>
+        <i :class="[$route.path.indexOf('cart') !== -1? 'icon-cart-2':'icon-cart']"></i>
         <p>购物车</p>
         <span v-if="cartNum && cartNum!=0" class="circlePoint">{{cartNum}}</span>
       </router-link>
     </li>
     <li>
       <router-link to="/ticket">
-        <i :class="['icon-ticket', activeIndex===2?'icon-ticket-2':'' ]"></i>
+        <i :class="[$route.path.indexOf('ticket') !== -1? 'icon-ticket-2':'icon-ticket' ]"></i>
         <p>企业赠券</p>
       </router-link>
     </li>
     <li>
       <router-link to="/user">
-        <i :class="['icon-user', activeIndex===3?'icon-user-2':'' ]"></i>
+        <i :class="[$route.path.indexOf('user') !== -1? 'icon-user-2':'icon-user' ]"></i>
         <p>我的</p>
       </router-link>
     </li>
@@ -46,28 +46,27 @@ export default {
   name: 'navBar',
   data () {
     return {
-      // activeIndex: getStore('active'),
-      navList:[{
-        'path': '/home',
-        'icon': 'icon-home',
-        'activeIcon': 'icon-home-2',
-        'title': '首页'
-      },{
-        'path': '/cart',
-        'icon': 'icon-cart',
-        'activeIcon': 'icon-cart-2',
-        'title': '购物车'
-      },{
-        'path': '/ticket',
-        'icon': 'icon-ticket',
-        'activeIcon': 'icon-ticket-2',
-        'title': '企业赠券'
-      },{
-        'path': '/user',
-        'icon': 'icon-user',
-        'activeIcon': 'icon-user-2',
-        'title': '我的'
-      }]
+    //   navList:[{
+    //     'path': '/home',
+    //     'icon': 'icon-home',
+    //     'activeIcon': 'icon-home-2',
+    //     'title': '首页'
+    //   },{
+    //     'path': '/cart',
+    //     'icon': 'icon-cart',
+    //     'activeIcon': 'icon-cart-2',
+    //     'title': '购物车'
+    //   },{
+    //     'path': '/ticket',
+    //     'icon': 'icon-ticket',
+    //     'activeIcon': 'icon-ticket-2',
+    //     'title': '企业赠券'
+    //   },{
+    //     'path': '/user',
+    //     'icon': 'icon-user',
+    //     'activeIcon': 'icon-user-2',
+    //     'title': '我的'
+    //   }]
     }
   },
   mounted() {
@@ -80,21 +79,21 @@ export default {
   },
   computed: {
     ...mapState(['cartList']),
-    activeIndex(){
-      if(!getSessionStore('active')) {
-          return Number(0);
-       } else {
-          return Number(getSessionStore('active'));
-       }
-    },
-    router() {
-      //判断路由变化
-       this.navList.forEach((item, i) => {
-          if(this.$route.path == item.path) {
-             setSessionStore('active', i);
-          } 
-      }); 
-    },
+    // activeIndex(){
+    //   if(!getSessionStore('active')) {
+    //       return Number(0);
+    //    } else {
+    //       return Number(getSessionStore('active'));
+    //    }
+    // },
+    // router() {
+    //   //判断路由变化
+    //    this.navList.forEach((item, i) => {
+    //       if(this.$route.path == item.path) {
+    //          setSessionStore('active', i);
+    //       } 
+    //   }); 
+    // },
     cartNum() {
       let cartNum = 0;
       this.cartList && this.cartList.forEach( item => {
@@ -113,9 +112,9 @@ export default {
       }).then(this.INIT_BUYCART);
     }
   },
-  watch: {
-    '$route': 'router'
-  }
+  // watch: {
+  //   '$route': 'router'
+  // }
 
 }
 </script>

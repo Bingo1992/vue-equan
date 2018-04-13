@@ -19,12 +19,16 @@ $sm-font: 10px;
 $gauge: 12px;
 $bgMargin: 16px;
 
-// @mixin box {
-//     display: -webkit-box;
-//     -webkit-box-orient: vertical;
-//     -webkit-box-pack: center;
-//     -webkit-box-align: center;
-// }
+@mixin box {
+    // display: -webkit-box;
+    // -webkit-box-orient: vertical;
+    // -webkit-box-pack: center;
+    // -webkit-box-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 @mixin height($bs:44px){
     height:$bs;

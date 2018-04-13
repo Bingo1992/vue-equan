@@ -1,7 +1,7 @@
 <template>
     <div class="children-view">
-        <loading v-if="showLoading"></loading>
-        <div v-if="!showLoading" class="banner-b">
+        <!-- <loading v-if="showLoading"></loading> -->
+        <div class="banner-b">
             <!-- 图片轮播 -->
             <banner :listImg="proDetail.imageList" myClass="1"  hasPoint="true"></banner>
             <div :key="proDetail.id">
@@ -36,21 +36,25 @@
             <div class="bttomBtn two-btn border-top">
                 <router-link class="backNav border-right" to="/cart">
                     <i class="icon-cart"></i>
-                    <!-- <span v-if="cartNum != 0" class="circlePoint">{{cartNum}}</span> -->
+                    <span v-if="cartNum != 0" class="circlePoint">{{cartNum}}</span>
                 </router-link>
-                <a class="btn-cart">加入购物车</a>
-                <a @click="goToBuy(proDetail.id, getImgPath(proDetail.imageList[0].pic), proDetail.proTitle, proDetail.price, proDetail.marketPrice)" class="btn-theme">立即购买</a>
+                <a class="btn-cart" @click="addToCart(getImgPath(proDetail.imageList[0].pic), proDetail.proTitle, proDetail.price, proDetail.marketPrice)">加入购物车</a>
+                <a @click="goToBuy(getImgPath(proDetail.imageList[0].pic), proDetail.proTitle, proDetail.price, proDetail.marketPrice)" class="btn-theme">立即购买</a>
             </div>
         </div>
+
+         <!-- 提示遮罩 -->
+        <alert-tip v-if="showAlertTip" :alert-text="alertText"></alert-tip>
+          
     </div>
     	 
 
 </template>
 
 <script>
-
-// import {mapState,mapMutations} from 'vuex'
-import {proDetail} from '/api/api'
+import alertTip from '/components/alertTip'
+import {mapState,mapMutations} from 'vuex'
+import {proDetail, addCart} from '/api/api'
 import { setStore } from '/utils/storage'
 import {getImgPath} from '/components/mixin'
 import Banner from '/components/swiperDefault'
@@ -64,25 +68,30 @@ export default {
             showAttrDialog: false,
             showAlertTip: false,
             alertText: "",
-            attrLen: 0,//属性个数
-            attrName:'',//获取的属性名称
             attrArray:[],//获取的属性名称数组
-            amount: 1,//添加的数量
-            price: 0,//属性选中的价格
-            skuId: '',//选择的商品id
-            idArray: [],
-            cartAmount: 0,
-            btnType: 0//判断按钮类型,0为选则属性，1为加入购物车，2为购买
+            price: 0//属性选中的价格
+         
 		}
 	},
     components: {
-        Banner, Loading
+        Banner, Loading, alertTip
     },
 	mounted() {
 		this._initData();
     },
     mixins: [getImgPath],
+    computed: {
+        ...mapState(['cartList']),
+        cartNum () {
+          let cartNum = 0;
+          this.cartList && this.cartList.forEach( item => {
+             cartNum += item.proNum;
+          })
+          return cartNum;
+        }
+    },
 	methods: {  
+        ...mapMutations(['ADD_CART']),
 		_initData() {
             proDetail(this.$route.query.id).then(res => {
                 this.proDetail = res;
@@ -95,12 +104,35 @@ export default {
                     autoplay: 3000,
                     autoplayDisableOnInteraction: false
                 });
-            })
+            }) 
 		},
-        goToBuy(id, img, title, price, marketPrice) {
+        //显示弹窗
+        showHideAlert(text) { 
+            this.showAlertTip = true;
+            this.alertText = text;
+            setTimeout(() => {
+                this.showAlertTip = false;
+            }, 1500);
+        },
+        //加入购物车
+        addToCart(img, title, price, marketPrice) {
+            this.showHideAlert('已成功加入购物车');
+            addCart({proID: this.$route.query.id, proNum: 1}).then( res => {
+                this.ADD_CART({
+                    proID: this.$route.query.id,
+                    proImg: img,
+                    proName: title,
+                    proPrice: price,
+                    marketPrice: marketPrice,
+                    check: false,
+                    proNum: 1
+                })
+            });
+        },
+        goToBuy(img, title, price, marketPrice) {
             let goods = [];
             goods.push({
-                proID: id,
+                proID: this.$route.query.id,
                 proNum: 1,
                 proPrice: price,
                 proName: title,
@@ -109,12 +141,12 @@ export default {
                 check: true
             });
             setStore('buyPro',goods);
-            this.$router.push({path:'/orderConfirm',query:{skuId: id}});
+            this.$router.push({path:'/orderConfirm',query:{skuId: this.$route.query.id}});
         }
        
 	},
     watch:{
-        // '$route':'_initData'
+        '$route':'_initData'
     }
 
 }
@@ -131,7 +163,6 @@ export default {
         opacity: 1 !important;
     }
 }
-
 .backNav {
     flex-direction: column;
     background-color: #fafafa;
