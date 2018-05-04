@@ -38,25 +38,35 @@ export default {
     setStore('buyCart', cart);
   },
    // 修改购物车
-  ['EDIT_CART'] (state, {proID, type, check}) {
+  ['EDIT_CART'] (state, {proID, proNum, check}) {
     let cart = state.cartList;
  
-    if(type != 0 && proID){//修改数量
+    // if(type != 0 && proID){//修改数量
      
-      cart.forEach((item,i) => {
+    //   cart.forEach((item,i) => {
+    //     if(item.proID === proID) {
+    //       if(type < 0 && item.proNum > 1 || type > 0) {
+    //          item.proNum += type;
+    //       }
+    //     }
+    //   })
+    // } 
+    if(proID) {
+       cart.forEach((item) => {
         if(item.proID === proID) {
-          if(type < 0 && item.proNum > 1 || type > 0) {
-             item.proNum += type;
-          }
-        }
-      })
-    } else if(proID) {//单个勾选
-      cart.forEach((item) => {
-        if(item.proID === proID) {
+          item.proNum = proNum;
           item.check = check;
         }
       })
-    } else { //全选
+    }
+    // else if(proID) {//单个勾选
+    //   cart.forEach((item) => {
+    //     if(item.proID === proID) {
+    //       item.check = check;
+    //     }
+    //   })
+    // }
+     else { //全选
       cart.forEach((item) => {
         item.check = check ? true : false;
       })

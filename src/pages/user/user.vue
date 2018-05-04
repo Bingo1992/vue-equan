@@ -11,14 +11,14 @@
             
 		<ul class="bg-mgShow">
             <li>
-                <router-link class="list-box" to="/">
+                <router-link class="list-box" to="/account">
                     <i class="icon-account font-red pdr"></i>
                     <span class="list-info-h">我的账户</span>
                     <i class="icon-right"></i>
                 </router-link>
             </li>
             <li>
-            	<router-link class="list-box" to="/">
+            	<router-link class="list-box" to="/orderList">
                     <i class="icon-order font-green pdr"></i>
                     <span class="list-info-h">兑换订单</span>
                     <span class="circlePoint">3</span>
@@ -26,7 +26,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link class="list-box" to="/">
+                <router-link class="list-box" to="/ticket">
                     <i class="icon-ticket-3 font-yellow pdr"></i>
                     <span class="list-info-h">我的卡券</span>
                     <i class="icon-right"></i>

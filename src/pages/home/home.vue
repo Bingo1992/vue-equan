@@ -1,10 +1,10 @@
 <template>
 	<div class="banner-bt">
-		<loading v-if="showLoading"></loading>
-		<div v-else>
+		<!-- <loading v-if="showLoading"></loading> -->
+		<div>
 			<div class="fixed-top bg-show">
 				<div class="list-box border-bottom">
-					<div class="bg-account">
+					<router-link class="bg-account" to="/account">
 						<div class="list-box">
 							<div class="list-info-h">
 								<i class="icon-coin"></i>
@@ -12,14 +12,14 @@
 							</div>
 							<i class="icon-right"></i>
 						</div>	
-					</div>
+					</router-link>
 
-					<div class="search-bar list-info-h">
+					<form class="search-bar list-info-h">
 						<div class="list-box">
 							<i class="icon-search"></i>
 							<input class="list-info-h" type="text" placeholder="请输入商品名称、品牌等">
 						</div>
-					</div>	
+					</form>	
 				</div>
 			</div>
 		
@@ -59,8 +59,7 @@
 	                <h3 class="activity-title"><span>活动专区</span></h3>
 	                <ul>
 	                    <li>
-	                        <router-link class="list-box" :to="{path: '/proList', query: {
-	                        	type: 2000}}">
+	                        <router-link class="list-box" :to="{path: '/proList'}">
 	                            <h3 class="font-red center-text">每周爆款</h3>
 	                            <p class="font-gray center-text">每周爆款随你挑</p>
 	                            <img class="act-img-2" src="../../assets/images/5.jpg">
@@ -69,7 +68,7 @@
 	                    <li>
 	                        <router-link class="list-box" :to="{path: '/proList', query: {
 	                        	type: 2001}}">
-	                            <div class="list-info">
+	                            <div class="list-info-v">
 	                                <h3 class="font-blue-2">车友必备</h3>
 	                                <p class="font-gray">带上它出去浪</p>
 	                            </div>
@@ -79,7 +78,7 @@
 	                    <li>
 	                       <router-link class="list-box" :to="{path: '/proList', query: {
 	                       	type: 2002}}">
-	                            <div class="list-info">
+	                            <div class="list-info-v">
 	                                <h3 class="font-purple">数码控</h3>
 	                                <p class="font-gray">最新潮流都在这</p>
 	                            </div>
@@ -89,7 +88,7 @@
 	                    <li>
 	                       <router-link class="list-box" :to="{path: '/proList', query: {
 	                       	type: 2003}}">
-	                            <div class="list-info">
+	                            <div class="list-info-v">
 	                                <h3 class="font-theme">运动达人</h3>
 	                                <p class="font-gray">运动保持年轻</p>
 	                            </div>
@@ -99,7 +98,7 @@
 	                    <li>
 	                        <router-link class="list-box" :to="{path: '/proList', query: {
 	                        	type: 2004}}">
-	                            <div class="list-info">
+	                            <div class="list-info-v">
 	                                <h3 class="font-red-2">智慧萌娃</h3>
 	                                <p class="font-gray">要给孩子最好的</p>
 	                            </div>
@@ -129,11 +128,12 @@
 	</div>
 </template>
 <script>
-import {banner, ads, proList} from '/api/api'
+import {integral, banner, ads, proList} from '/api/api'
 import Banner from '/components/swiperDefault'
 import loading from '/components/loading'
 import FooterNav from '/components/footer'
 import product from '/components/product'
+import axios from 'axios'
 
 // import Swiper from 'swiper'
 
@@ -143,31 +143,39 @@ export default {
 		return {
 			list: [],
 			showLoading: true,
-			account: 5888, //e币
+			account: 0, //e币
 			adsImg: [],
 			listImg: [],
 			proList1: [],
 			proList2: []
 		}
 	},
-	created() {
-		this._initData();
-	},
 	components: {
 	   Banner, product, FooterNav, loading
 	},
+	created() {
+		this._initData();
+	},
 	methods: {
-		_initData() {
-			proList().then(res => {
-				this.proList1 = res.list;
-				this.proList2 = res.list;
-				this.showLoading = false;
+		async _initData() {
+			// E币数量
+			integral().then(res => {
+				if(res.success) {
+					this.account = res.obj;
+				}
 			});
+			// proList().then(res => {
+			// 	this.proList1 = res.list;
+			// 	this.proList2 = res.list;
+			// 	this.showLoading = false;
+			// });
 			// proList().then(res => {
 			// 	this.proList2 = res.list;
 			// });
-			banner().then(res => {
+		
+			banner({location: "index_top"}).then(res => {
 				this.listImg = res.obj;
+				console.log(res);
 			}).then(() => {
 				var swiper0 = new Swiper('.swiper-container0', {
 		            pagination: '.swiper-pagination0',
@@ -178,20 +186,20 @@ export default {
 		        });
 			}) 
 
-			banner().then(res => {
-				this.adsImg = res.obj;
-			}).then(() => {
-				var swiperc1 = new Swiper('.swiper-container-c1', {
-		            slidesPerView: 'auto',
-		            centeredSlides: true,
-		            paginationClickable: true,
-		            spaceBetween: 16,
-		            loop: true,
-		            autoplay: 4500,
-		            autoplayDisableOnInteraction: false
-		        });
+			// banner({location: "index_middle"}).then(res => {
+			// 	this.adsImg = res.obj;
+			// }).then(() => {
+			// 	var swiperc1 = new Swiper('.swiper-container-c1', {
+		 //            slidesPerView: 'auto',
+		 //            centeredSlides: true,
+		 //            paginationClickable: true,
+		 //            spaceBetween: 16,
+		 //            loop: true,
+		 //            autoplay: 4500,
+		 //            autoplayDisableOnInteraction: false
+		 //        });
         
-			})
+			// })
 		}
 	}
 

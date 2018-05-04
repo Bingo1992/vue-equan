@@ -38,6 +38,8 @@
           <router-link class="btn-theme" to="/addressManage/addAddress">+新增地址</router-link>
         </div>
     </section>
+
+    <!-- 删除遮罩 -->
     <confirm-dialog v-if="showDialog" :confirm-text="confirmText" showBtn="true" @closeConfirmDialog="closeConfirmDialog" @confirmBtn="delAddress"></confirm-dialog>
 
     <transition name="router-slid" mode="out-in">
@@ -56,20 +58,19 @@
       data () {
         return {
             showLoading: true, //显示加载中  
-            address:[],
+            address:[],//地址列表
             showDialog: false,
             confirmTitle:'',
             confirmText:'',
-            currentID:'',
-            defaultIndex: 0
+            currentID:'', //当前地址ID
+            defaultIndex: 0//设为默认地址的索引
         }
       },
       components: {
         loading, confirmDialog
       }, 
       mounted() {
-       this.getAddress();
-
+        this.getAddress();
       },
       methods: {
         // 获取地址
@@ -92,9 +93,9 @@
               });
             });
         },
-        // 修改默认地址
-        changeDefault(item,i) {
-         
+        //修改默认地址
+        changeDefault(item, i) {
+          
         },
         //显示遮罩
         showConfirmDialog(id) {

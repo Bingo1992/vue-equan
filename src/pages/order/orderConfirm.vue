@@ -216,5 +216,5 @@
   border-radius: 6px;
   line-height: 20px;
 }
-.top-text {height: 55px;}
+.top-text {margin-bottom: 15px;}
 </style>

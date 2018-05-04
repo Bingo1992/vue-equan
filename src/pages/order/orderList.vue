@@ -34,7 +34,6 @@
 		        
 		    </div>
 			
-
 			<transition name="router-slid" mode="out-in">
 		    	<router-view></router-view>
 		    </transition>
@@ -43,7 +42,6 @@
 		<div class="fixed-right">
 			<router-link to="/cart">
 				<i class="icon-cart"></i>
-				<!-- <span class="semiCirclePoint">{{cartNum}}</span> -->
 				<cart-num class="semiCirclePoint"></cart-num>
 			</router-link>
 			<a href="#proList"><i class="icon-top"></i></a>
@@ -60,9 +58,7 @@ import sortTabs from '/components/sortTabs'
 import loading from '/components/loading'
 import loadMore from '/components/loadMore'
 import cartNum from '/components/cartNum'
-
 export default {
-	name: 'productList',
 	data() {
 		return {
 			showLoading: true,
@@ -71,7 +67,6 @@ export default {
 			sortIndex: null,//点击的筛选类型
 			timer: null,
 			count: 0,
-			// scrollDelay: false,
 			proList: [],
 			params: {
 				page: 1,
@@ -83,19 +78,18 @@ export default {
 		}
 	},
 	components: {
-	    product, loading, sortTabs, loadMore, cartNum
-	},
-	computed: {
+         product, loading, sortTabs, loadMore, cartNum
+    },
+    computed: {
 		...mapState(['sortPro']),
 	},
-	created() {
+    created() {
 		this._initData();
 	},
-	methods: {
-		...mapMutations(['CHOOSE_PROSORT']),
-
-		_initData() {
-			let type = this.$route.query.type;
+    methods: {
+    	...mapMutations(['CHOOSE_PROSORT']),
+    	_initData() {
+    		let type = this.$route.query.type;
 			// 获取筛选分类
 			sortList().then(res => {
 				let sortList = res;
@@ -105,11 +99,10 @@ export default {
 					}
 				})
 			});
-			//获取商品列表
-			this._getProList();
-		},
-		//获取商品列表
-		_getProList(flag) {
+    		this._getProList();
+    	},
+    	//获取商品列表
+    	_getProList(flag) {
 			let params = {
 	          params: {
 	            page: this.params.page,
@@ -122,32 +115,28 @@ export default {
 				let data = res.list;	
 				if(flag) {
 					this.proList = [...this.proList, ...data];
-
+			 
 				} else {
 					this.proList = data;
 				}
 				this.showLoading = false;
-				// this.scrollDelay = false;
 			});
-		},
-		
-		//加载更多
-		loadMore() {
-			if(Number(this.params.page) < Number(this.count)) {
-				// this.scrollDelay = true;				
-				setTimeout(() => {
-					this.params.page++;
+    	},
+    	//加载更多
+    	loadMore(){
+    	 	if(Number(this.params.page) < Number(this.count)) {
+    	 		setTimeout(() => {
+    	 			this.params.page++;
 					this._getProList(true);	
 					this.isLoading = true;
-				},300);
-				
-			} else {
-				//结束
+    	 		},300);
+    	 	} else {
+    	 		//结束
 				this.isLoading = false;
 				this.noData = true;
-			}	
-		},
-		// 停止加载的样式
+    	 	}
+        },
+        // 停止加载的样式
 		noScroll() {
 			this.isLoading = false;
 		},
@@ -165,10 +154,8 @@ export default {
 		// 关闭遮罩
 		closeDialog() {
 			this.sortIndex = null;
-		},
-			
-	}
-
+		}
+    }
 }
 </script>
 <style lang="scss" scoped>

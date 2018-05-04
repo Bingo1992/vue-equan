@@ -5,22 +5,22 @@
 			<banner :listImg="adsImg" myClass="-c2"></banner>
 			<ul class="recharge-list flex-layout">
 				<li>
-					<a href="#">
+					<router-link to="/telCharge">
 						<img src="../../../static/images/mobile.png">
 						<p>话费充值</p>
-					</a>
+					</router-link>
 				</li>
 				<li>
-					<a href="#">
+					<router-link to="/flowCharge">
 						<img src="../../../static/images/flow.png">
 						<p>流量充值</p>
-					</a>
+					</router-link>
 				</li>
 				<li>
-					<a href="#">
+					<router-link to="/oilCharge">
 						<img src="../../../static/images/oil.png">
 						<p>油卡充值</p>
-					</a>
+					</router-link>
 				</li>
 			</ul>
 			<product :proList="proList"></product>

@@ -7,11 +7,6 @@
 	        		<span>{{item.value}}</span>
 	        		<span class="font-gray pdl">({{item.count}})</span>
 	        	</li>
-	           <!--  <li class="active"><span class="value">全部分类</span><span class="font-gray pdl">(3423)</span></li>
-	            <li><span class="value">汽车用品</span><span class="font-gray pdl">(453)</span></li>
-	            <li><span class="value">超市卡券</span><span class="font-gray pdl">(634)</span></li>
-	            <li><span class="value">汽车打蜡</span><span class="font-gray pdl">(432)</span></li>
-	            <li><span class="value">生活服务</span><span class="font-gray pdl">(967)</span></li> -->
 	        </ul>
 	    </div>
 		<div class="sort-box"  v-if="sortIndex == 1">
@@ -28,8 +23,6 @@
 	                <span>价格排序</span>
 	                <ul>
 	                    <li v-for="(item, i) in sortList2" :class="{'active': sortPriceIndex==i}" @click="getPriceSort(item, i)"><span>{{item}}</span></li>
-
-	                    <!-- <li><span class="value">价格从低到高</span></li> -->
 	                </ul>
 	            </div>
 	            <div class="flex-layout price-btn">

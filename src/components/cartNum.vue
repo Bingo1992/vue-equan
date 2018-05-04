@@ -1,0 +1,40 @@
+<template>
+	 <span v-if="cartNum != 0" class="circlePoint">{{cartNum<100?cartNum:'99+'}}</span>
+</template>
+<script>
+import {mapState, mapMutations} from 'vuex'
+import { getCartList } from '/api/api'
+import { setStore, getStore } from '/utils/storage'
+export default {
+	data() {
+		return {}
+	},
+	mounted() {
+		if(!getStore('buyCart')) {
+	      this._getCartList();
+	    } else {
+	       this.INIT_BUYCART();
+	    }
+	},
+	computed: {
+		...mapState(['cartList']),
+        cartNum () {
+          let cartNum = 0;
+          this.cartList && this.cartList.forEach( item => {
+             cartNum += item.proNum;
+          })
+          return cartNum;
+        }
+	},
+	methods: {
+		...mapMutations(['INIT_BUYCART']),
+	   // 获取一次购物车商品
+	    _getCartList () {
+	      getCartList().then(res => {
+	        setStore('buyCart', res.result);
+	        // 重新初始化一次本地数据
+	      }).then(this.INIT_BUYCART);
+	    }
+	}
+}
+</script>

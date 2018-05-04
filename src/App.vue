@@ -68,7 +68,7 @@ img {
     display: block;
 }
 
-h6 {font-size: 12px;}
+h6 {font-size: 12px; line-height: 20px;}
 h5 {font-size: 14px;}
 h4{font-size: 16px;}
 h3{font-size: 18px;}

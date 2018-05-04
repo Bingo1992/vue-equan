@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueLazyload from 'vue-lazyload'
-import infiniteScroll from 'vue-infinite-scroll'
+// import infiniteScroll from 'vue-infinite-scroll'
 import App from './App'
 import router from './router'
 import store from './store/index'
@@ -12,9 +12,8 @@ import './assets/css/fonts'
 import './assets/scss/style'
 import './utils/rem'
 
-require('./mock');
 
-Vue.use(infiniteScroll)
+// Vue.use(infiniteScroll)
 Vue.use(VueLazyload, {
   loading: '/static/images/loading.png'
 })

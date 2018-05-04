@@ -15,10 +15,18 @@
       </router-link>
     </li>
     <li>
+      <router-link to="/proList">
+        <i :class="[$route.path.indexOf('proList') !== -1? 'icon-sort-2':'icon-sort']"></i>
+        <p>全部商品</p>
+        <!-- <span v-if="cartNum && cartNum!=0" class="circlePoint">{{cartNum}}</span> -->
+      </router-link>
+    </li> 
+    <li>
       <router-link to="/cart">
         <i :class="[$route.path.indexOf('cart') !== -1? 'icon-cart-2':'icon-cart']"></i>
         <p>购物车</p>
-        <span v-if="cartNum && cartNum!=0" class="circlePoint">{{cartNum}}</span>
+        <cart-num></cart-num>
+        <!-- <span v-if="cartNum && cartNum!=0" class="circlePoint">{{cartNum}}</span> -->
       </router-link>
     </li>
     <li>
@@ -39,9 +47,9 @@
 
 <script>
 import {mapState, mapMutations} from 'vuex'
-import { setSessionStore, getSessionStore } from '/utils/storage'
-import { getCartList } from '/api/api'
-import { setStore, getStore } from '/utils/storage'
+// import { getCartList } from '/api/api'
+// import { setStore, getStore } from '/utils/storage'
+import cartNum from '/components/cartNum'
 export default {
   name: 'navBar',
   data () {
@@ -69,16 +77,19 @@ export default {
     //   }]
     }
   },
+  components: {
+      cartNum
+    },
   mounted() {
-    if(!getStore('buyCart')) {
-      this._getCartList();
-    } else {
-       this.INIT_BUYCART();
-    }
+    // if(!getStore('buyCart')) {
+    //   this._getCartList();
+    // } else {
+    //    this.INIT_BUYCART();
+    // }
     
   },
   computed: {
-    ...mapState(['cartList']),
+    // ...mapState(['cartList']),
     // activeIndex(){
     //   if(!getSessionStore('active')) {
     //       return Number(0);
@@ -94,23 +105,23 @@ export default {
     //       } 
     //   }); 
     // },
-    cartNum() {
-      let cartNum = 0;
-      this.cartList && this.cartList.forEach( item => {
-         cartNum += item.proNum;
-      })
-      return Number(cartNum);
-    }
+    // cartNum() {
+    //   let cartNum = 0;
+    //   this.cartList && this.cartList.forEach( item => {
+    //      cartNum += item.proNum;
+    //   })
+    //   return Number(cartNum);
+    // }
   },
   methods: {
-    ...mapMutations(['INIT_BUYCART']),
-   // 获取一次购物车商品
-    _getCartList () {
-      getCartList().then(res => {
-        setStore('buyCart', res.result);
-        // 重新初始化一次本地数据
-      }).then(this.INIT_BUYCART);
-    }
+   //  ...mapMutations(['INIT_BUYCART']),
+   // // 获取一次购物车商品
+   //  _getCartList () {
+   //    getCartList().then(res => {
+   //      setStore('buyCart', res.result);
+   //      // 重新初始化一次本地数据
+   //    }).then(this.INIT_BUYCART);
+   //  }
   },
   // watch: {
   //   '$route': 'router'

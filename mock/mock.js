@@ -46,15 +46,16 @@ module.exports = function () {
         }],
         proList: Mock.mock({
             count: 5,
+            title:/新品首发|人气推荐/,
             // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
             'list|10-20': [{
                 // 属性 id 是一个自增数，起始值为 1，每次增 1
                 'id|+1': 11,
-                'imageUrl|+1': Random.image('200x200'),
+                'imageUrl|+1': '@image("200x200")',
                 'label1|+1': /满99-10|/,
                 'label2|+1': /券|/,
                 'label3|+1': /特价|/,
-                'proTitle': Random.ctitle(13, 28),
+                'proTitle': '@ctitle(13, 28)',
                 'price|60-900': 1,
                 'marketPrice|65-988': 1
             }]
@@ -67,7 +68,7 @@ module.exports = function () {
             'label1': /满99-10|/,
             'label2': /券|/,
             'label3': /特价|/,
-            'proTitle': Random.ctitle(13, 28),
+            'proTitle': '@ctitle(13, 28)',
             'price|60-900': 1,
             'marketPrice|65-988': 1,
             'detailImg': [{
@@ -75,16 +76,16 @@ module.exports = function () {
              }, {
                 'pic': '/banner/20180402/20180402181906_818.jpg',
              }],
-             'desTitle': Random.ctitle(5, 8),
-             'desText': Random.ctitle(25,60)
+             'desTitle': '@ctitle(5, 8)',
+             'desText': '@ctitle(25,60)'
            
         }),
         cartList: Mock.mock({
             'status': '1',
             'result|3-6': [{
                 'proID|+1': 1,
-                'proImg': Random.image('200x200'),
-                'proName|+1': Random.ctitle(13, 28),
+                'proImg': "@image('200x200')",
+                'proName|+1': '@ctitle(13, 28)',
                 'proNum|1-5': 1,
                 'proPrice|60-900': 1,
                 'marketPrice|65-988': 1,

@@ -7,7 +7,7 @@
 				<i class="icon-circle"></i>
 			</div>
 			<ul :class="['pro-list', proThree? 'pro-list-1':'pro-list-2']">
-				<li v-for="(item, i) in proList" :key="item.id" @click="gotoDetail(item.id)">
+				<li v-for="(item, i) in proList" :key="i" @click="gotoDetail(item.id)">
 					<!-- <router-link :to="{path:'/productDetail',query:{id: item.id}}"> -->
 						<div :class="[proThree? 'pro-img-1':'pro-img-2']">
 							<img v-lazy="item.imageUrl">
@@ -18,8 +18,8 @@
 							</div>
 							
 						</div>
-						<h6 v-if="proThree" class="nowrap-2">{{item.proTitle}}</h6>
-						<h5 v-else class="nowrap-2">{{item.proTitle}}</h5>
+						<h6 v-if="proThree" class="pro-title nowrap-2">{{item.proTitle}}</h6>
+						<h5 v-else class="pro-title nowrap-2">{{item.proTitle}}</h5>
 						<div class="price-small">
 							<span class="font-orange">
 								<i class="icon-coin"></i>
@@ -34,7 +34,7 @@
 	</div>
 </template>
 <script>
-import {proList} from '/api/api';
+// import {proList} from '/api/api';
 // import loading from '/components/loading'
 export default {
 	name: 'proList',
@@ -46,7 +46,7 @@ export default {
 	props: ['proList','proThree'],
 	methods: {
 		gotoDetail(id) {	
-			if(this.$route.path.indexOf('proList')) {
+			if(this.$route.path.indexOf('proList') != -1) {
 				this.$router.push({path:'/proList/productDetail', query:{id: id}});
 			} else {
 				this.$router.push({path:'/productDetail', query:{id: id}});
@@ -65,11 +65,11 @@ export default {
 	li {
 		width: pxTorem(228);
 		padding: 0 pxTorem(4);
-		min-height: pxTorem(368);
+		height: pxTorem(368);
 	}
 	h6 {
 		line-height: 1rem;
-		padding-top: .3rem;
+		// padding-top: .3rem;
 	}
 }
 .pro-img-1 {
@@ -88,10 +88,10 @@ export default {
 		padding: 0 pxTorem(10);
 		height: pxTorem(353) + 4.8;
 	}
-	h5 {
-        padding-top: .3rem;
-        line-height: pxTorem(44);
-    }
+	// h5 {
+ //        padding-top: .3rem;
+ //        line-height: pxTorem(44);
+ //    }
     img {
     	height: pxTorem(341);
     }

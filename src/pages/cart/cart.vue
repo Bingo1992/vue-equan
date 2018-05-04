@@ -31,7 +31,7 @@
       <ul v-if="cartList.length > 0" class="cart-list border-list">
           <li class="list-box" v-for="(cart,index) in cartList" :key="cart.proID">
                 <label class="checkbox">
-                    <input type="checkbox" name="checkbox" :value="cart.check" v-model="cart.check"  @change="selectPro(cart.proID, cart.check)">
+                    <input type="checkbox" name="checkbox" :value="cart.check" v-model="cart.check"  @change="selectPro(cart.proID, cart.proNum,cart.check)">
                     <i class="icon-hook"></i>
                 </label>
                 <img class="list-img" :src="cart.proImg">
@@ -44,12 +44,12 @@
                                   <span class="font-orange"><i class="icon-coin"></i>{{cart.proPrice}}</span>
                                   <s class="font-gray">市场价:￥{{cart.marketPrice}}</s>
                                 </div>
-
-                                <div class="amount">
-                                  <span :class="['minus', 'icon-minus', cart.proNum ===1? 'dis-btn':'']" @touchstart="changeAmount(cart.proID, -1, cart.check)"></span>
-                                  <input type="number" class="count" v-model.number="cart.proNum" >
-                                  <span class="plus icon-plus" @touchstart="changeAmount(cart.proID, 1, cart.check)"></span>
-                              </div>
+                                <buy-num :proID="cart.proID" :proNum="cart.proNum" :check="cart.check" @editNum="editNum"></buy-num>
+                           <!--      <div class="amount">
+                                  <span :class="['minus', 'icon-minus', cart.proNum ===1? 'dis-btn':'']" @touchstart="changeAmount(cart.proID, pronum, -1, cart.check)"></span>
+                                  <input type="number" class="count" maxlength="2" v-model.number="pronum" @blur="editNum(cart.proID, pronum, cart.check)">
+                                  <span class="plus icon-plus" @touchstart="changeAmount(cart.proID, pronum, 1, cart.check)"></span>
+                              </div> -->
                             </div>
                         </div>
                     </div>
@@ -65,8 +65,8 @@
                   全选
               </label>
               <div class="list-info-v right-text pdr">
-                  <p class="font-orange">￥{{calcTotalMoney}}</p>
-                  <p>
+                  <p v-if="checkedCount" class="font-orange">￥{{calcTotalMoney}}</p>
+                  <p v-if="checkedCount">
                      <i class="icon-coin"></i>
                      <span class="font-orange">{{calcTotalCoin}}</span>
                   </p>
@@ -85,13 +85,16 @@
 
 <script>
 // import loading from '/components/loading'
+import {mapState,mapMutations} from 'vuex'
 import FooterNav from '/components/footer'
 import confirmDialog from '/components/confirmDialog'
+import buyNum from '/components/buyNum'
 import {getCartList, editCart,delCart,editCheckAll} from '/api/api'
 import { setStore } from '/utils/storage'
-import {mapState,mapMutations} from 'vuex'
+
 
 export default {
+  name:'cart',
   data () {
     return { 
       // showLoading: true,
@@ -107,11 +110,9 @@ export default {
     }
   },
   components: {
-    FooterNav, confirmDialog
+    FooterNav, confirmDialog, buyNum
   },
-  mounted() {
-      // this._initData();
-  },
+
   computed: {
     ...mapState([
         'cartList'
@@ -162,30 +163,21 @@ export default {
     ...mapMutations([
         'INIT_BUYCART', 'EDIT_CART', 'DELETE_CART'
     ]),
-    // _initData() {
-      // getCartList().then(res => {
-      //     if(res.status === '1') {
-      //       setStore('buyCart', res.result);
-      //     }
-      // }).then(() => {
-      //   this.INIT_BUYCART();
-      //   this.showLoading = false;
-      // });
-      // this.showLoading = false;
-    // },
+ 
     // 修改购物车
-    _editCart(proID,type,check) {
-       editCart({proID}).then( res => {
-          this.EDIT_CART({proID, type, check});
+    _editCart(proID, proNum, check) {
+       editCart({proID, proNum, check}).then( res => {
+          this.EDIT_CART({proID, proNum, check});
        });
     },
-    //修改数量
-    changeAmount(proID, type, check) {
-      this._editCart(proID, type, check);
+
+    // 修改数量
+    editNum(proID, proNum, check) {
+      this._editCart(proID, proNum, check);
     },
     //勾选产品
-    selectPro(proID, check) {
-       this._editCart(proID, 0, check);
+    selectPro(proID, proNum, check) {
+       this._editCart(proID, proNum, check);
     },
      //全选
     selectAll () {
@@ -258,7 +250,7 @@ export default {
 } 
 .cart-list {
    h5 {
-    height: 52px;
+    margin-bottom: 12px;
    }
 }
 .nothing {

@@ -19,6 +19,5 @@ export const getImgPath = {
 		// 	let url = '/' + path.substr(0, 1) + '/' + path.substr(1, 2) + '/' + path.substr(3) + suffix;
 		// 	return imgBaseUrl + url
 		// },
-	}
-
+	}		
 }

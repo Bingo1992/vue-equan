@@ -12,7 +12,7 @@
                         <span v-if="proDetail.label3" class="label-red">{{proDetail.label3}}</span>
                     </div>
                     
-                    <h5 class="pro-title nowrap-2">{{proDetail.proTitle}}</h5>
+                    <h4 class="pro-title">{{proDetail.proTitle}}</h4>
                     <div class="price">
                         <span class="font-orange lg-font">
                             <i class="icon-coin"></i>
@@ -33,10 +33,11 @@
         </div>
        
         <div class="fixed-bottom">
-            <div class="bttomBtn two-btn border-top">
+            <div class="bottomBtn two-btn border-top">
                 <router-link class="backNav border-right" to="/cart">
                     <i class="icon-cart"></i>
-                    <span v-if="cartNum != 0" class="circlePoint">{{cartNum}}</span>
+                    <!-- <span v-if="cartNum != 0" class="circlePoint">{{cartNum}}</span> -->
+                    <cart-num></cart-num>
                 </router-link>
                 <a class="btn-cart" @click="addToCart(getImgPath(proDetail.imageList[0].pic), proDetail.proTitle, proDetail.price, proDetail.marketPrice)">加入购物车</a>
                 <a @click="goToBuy(getImgPath(proDetail.imageList[0].pic), proDetail.proTitle, proDetail.price, proDetail.marketPrice)" class="btn-theme">立即购买</a>
@@ -52,13 +53,15 @@
 </template>
 
 <script>
-import alertTip from '/components/alertTip'
-import {mapState,mapMutations} from 'vuex'
+import {mapMutations} from 'vuex'
 import {proDetail, addCart} from '/api/api'
 import { setStore } from '/utils/storage'
 import {getImgPath} from '/components/mixin'
+import alertTip from '/components/alertTip'
 import Banner from '/components/swiperDefault'
 import Loading from '/components/loading'
+import cartNum from '/components/cartNum'
+
 export default {
 	data(){
 		return {
@@ -74,22 +77,22 @@ export default {
 		}
 	},
     components: {
-        Banner, Loading, alertTip
+        Banner, Loading, alertTip, cartNum
     },
 	mounted() {
 		this._initData();
     },
     mixins: [getImgPath],
-    computed: {
-        ...mapState(['cartList']),
-        cartNum () {
-          let cartNum = 0;
-          this.cartList && this.cartList.forEach( item => {
-             cartNum += item.proNum;
-          })
-          return cartNum;
-        }
-    },
+    // computed: {
+    //     ...mapState(['cartList']),
+    //     cartNum () {
+    //       let cartNum = 0;
+    //       this.cartList && this.cartList.forEach( item => {
+    //          cartNum += item.proNum;
+    //       })
+    //       return cartNum;
+    //     }
+    // },
 	methods: {  
         ...mapMutations(['ADD_CART']),
 		_initData() {
@@ -104,6 +107,12 @@ export default {
                     autoplay: 3000,
                     autoplayDisableOnInteraction: false
                 });
+                // 只有一张图时禁止轮播
+                if(this.proDetail.imageList.length <= 1) {
+                    swiper1.autoplay.stop();//停止自动播放
+                    swiper1.detachEvents(); //移除所有监听事件
+                    swiper1.pagination.$el.addClass('hide');
+                }
             }) 
 		},
         //显示弹窗
@@ -129,6 +138,7 @@ export default {
                 })
             });
         },
+        // 点击购买
         goToBuy(img, title, price, marketPrice) {
             let goods = [];
             goods.push({
@@ -140,7 +150,7 @@ export default {
                 marketPrice: marketPrice,
                 check: true
             });
-            setStore('buyPro',goods);
+            setStore('buyPro',goods);//将当前购买的商品信息存储到buyPro
             this.$router.push({path:'/orderConfirm',query:{skuId: this.$route.query.id}});
         }
        
@@ -178,7 +188,7 @@ export default {
    font-size: 16px;
 }
     
-.bttomBtn {
+.bottomBtn {
     a {
         flex: auto;
     }
