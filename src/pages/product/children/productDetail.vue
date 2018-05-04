@@ -109,7 +109,7 @@ export default {
                 });
                 // 只有一张图时禁止轮播
                 if(this.proDetail.imageList.length <= 1) {
-                    swiper1.autoplay.stop();//停止自动播放
+                    swiper1.stopAutoplay();;//停止自动播放
                     swiper1.detachEvents(); //移除所有监听事件
                     swiper1.pagination.$el.addClass('hide');
                 }

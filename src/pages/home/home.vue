@@ -172,10 +172,9 @@ export default {
 			// proList().then(res => {
 			// 	this.proList2 = res.list;
 			// });
-		
-			banner({location: "index_top"}).then(res => {
+
+			banner({params:{location: "index_top"}}).then(res => {
 				this.listImg = res.obj;
-				console.log(res);
 			}).then(() => {
 				var swiper0 = new Swiper('.swiper-container0', {
 		            pagination: '.swiper-pagination0',
@@ -184,22 +183,28 @@ export default {
 		            autoplay: 3000,
 		            autoplayDisableOnInteraction: false
 		        });
+		        // 只有一张图时禁止轮播
+                if(this.listImg.length <= 1) {
+                    swiper0.stopAutoplay();;//停止自动播放
+                    swiper0.detachEvents(); //移除所有监听事件
+                    swiper0.pagination.$el.addClass('hide');
+                }
 			}) 
 
-			// banner({location: "index_middle"}).then(res => {
-			// 	this.adsImg = res.obj;
-			// }).then(() => {
-			// 	var swiperc1 = new Swiper('.swiper-container-c1', {
-		 //            slidesPerView: 'auto',
-		 //            centeredSlides: true,
-		 //            paginationClickable: true,
-		 //            spaceBetween: 16,
-		 //            loop: true,
-		 //            autoplay: 4500,
-		 //            autoplayDisableOnInteraction: false
-		 //        });
+			banner({params:{location: "index_middle"}}).then(res => {
+				this.adsImg = res.obj;
+			}).then(() => {
+				var swiperc1 = new Swiper('.swiper-container-c1', {
+		            slidesPerView: 'auto',
+		            centeredSlides: true,
+		            paginationClickable: true,
+		            spaceBetween: 16,
+		            loop: true,
+		            autoplay: 4500,
+		            autoplayDisableOnInteraction: false
+		        });
         
-			// })
+			})
 		}
 	}
 
