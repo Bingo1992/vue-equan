@@ -110,6 +110,11 @@ export default new Router({
       }]
     },
     {
+      path: '/addAddress',
+      component: AddAddress,
+      meta: {title:'添加地址'}
+    },
+    {
       path: '/rechargeCenter',
       component: RechargeCenter,
       meta: {title:'充值中心', keepAlive: true}

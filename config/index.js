@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/api': {
-           // target: 'http://localhost:9090',
-           target: 'http://192.168.4.48:8080/equan2.0-wxweb',
+           target: 'http://localhost:9090',
+           // target: 'http://192.168.4.48:8080/equan2.0-wxweb',
            changeOrigin: true,
            pathRewrite: {'^/api': ''}
          }

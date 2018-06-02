@@ -57,6 +57,7 @@ export default {
         district:[],
         alertText: "",
         showAlertTip: false,
+        address: [],
         whetherDefault: '',//是否默认地址
         flag: false,
         addressId:'',
@@ -83,25 +84,29 @@ export default {
      }
   },
   methods: {
-    async initData() {
+    initData() {
       this.addressId = this.$route.query.addressId;
 
       if(this.addressId){//修改地址
-        let address = await addressList();
-        address.forEach((elm, index) => {
-           if(elm.proID == this.addressId) {
-             this.ads.name = elm.name;
-             this.ads.mobile = elm.mobile;
-             // let arr = elm.address_detail.split(" ");
-             this.ads.cityVal = elm.province + elm.city;
-             this.ads.disVal = elm.region;
-             this.ads.detailVal = elm.address_detail;
-             if(elm.check) {
-              this.whetherDefault = "check";
-              this.flag = true;
-             }
-           }
-        });
+
+        addressList().then(res => {
+            this.address = res.resultList;
+            this.address.forEach((elm, index) => {
+               if(elm.id == this.addressId) {
+                 this.ads.name = elm.username;
+                 this.ads.mobile = elm.mobile;
+                 // let arr = elm.address_detail.split(" ");
+                 this.ads.cityVal = elm.province + elm.city;
+                 this.ads.disVal = elm.district;
+                 this.ads.detailVal = elm.detailaddress;
+                 // if(elm.check) {
+                 //  this.whetherDefault = "check";
+                 //  this.flag = true;
+                 // }
+               }
+            });
+        })
+            
       }
     },
     // 保存

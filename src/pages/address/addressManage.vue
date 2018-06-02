@@ -5,11 +5,11 @@
     <section v-if="!showLoading">
         <!-- 地址列表 -->
         <ul class="address-list" v-if="address.length">
-            <li class="bg-mgShow"  v-for="(item,i) in address" :key="item.proID">
+            <li class="bg-mgShow"  v-for="(item,i) in address" :key="item.id">
                 <div class="rich-box border-bottom">
-                    <span>{{item.name}}</span>
+                    <span>{{item.username}}</span>
                     <span>{{item.mobile}}</span>
-                    <p>{{item.province}}{{item.city}}{{item.region}}{{item.address_detail}}</p>
+                    <p>{{item.province}}{{item.city}}{{item.district}}{{item.detailaddress}}</p>
                 </div>
                 <div class="list-box">
                     <div class="list-info-v">
@@ -23,7 +23,7 @@
                      
                     <div class="new-addr-btn">
                         <span class="font-gray pdr"  @click="showConfirmDialog(item.proID)"><i class="icon-del"></i></span>
-                        <router-link class="font-gray pdl" :to="{path:'/addressManage/addAddress',query:{addressId:item.proID}}"><i class="icon-edit"></i></router-link>
+                        <router-link class="font-gray pdl" :to="{path:'/addAddress',query:{addressId:item.id}}"><i class="icon-edit"></i></router-link>
                     </div>
                 </div>
             </li>
@@ -35,16 +35,16 @@
         </div>
          
         <div class="btn">
-          <router-link class="btn-theme" to="/addressManage/addAddress">+新增地址</router-link>
+          <router-link class="btn-theme" to="/addAddress">+新增地址</router-link>
         </div>
     </section>
 
     <!-- 删除遮罩 -->
     <confirm-dialog v-if="showDialog" :confirm-text="confirmText" showBtn="true" @closeConfirmDialog="closeConfirmDialog" @confirmBtn="delAddress"></confirm-dialog>
 
-    <transition name="router-slid" mode="out-in">
+   <!--  <transition name="router-slid" mode="out-in">
         <router-view></router-view>
-    </transition>  
+    </transition>  --> 
   </div> 
 </template>
 
@@ -74,20 +74,23 @@
       },
       methods: {
         // 获取地址
-        async getAddress() {
-            this.address = await addressList();
-            this.showLoading = false;
-            this.address && this.address.forEach((elm, index) => {
-                if(elm.check === true){
-                    this.defaultIndex = index;
-                }
+         getAddress() {
+             addressList().then(res => {
+              this.address = res.resultList;
+              this.showLoading = false;
+              this.address && this.address.forEach((elm, index) => {
+                  if(elm.isdefault === 1){
+                      this.defaultIndex = index;
+                  }
+              });
             });
+              
         },
         //删除地址
         delAddress() {
             delAddress(this.currentID).then(res => {
               this.address.forEach((elm, index) => {
-                 if(elm.proID === this.currentID) {
+                 if(elm.id === this.currentID) {
                     this.address.splice(index,1);
                  }
               });

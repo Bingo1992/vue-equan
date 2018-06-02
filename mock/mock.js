@@ -96,43 +96,36 @@ module.exports = function () {
         addCart: {}, 
         delCart: {},
         editCheckAll: {},
-        address:  [{
-            "proID":12345011,
+        address: {
+            'resultList': [{
+            "id":12345011,
             "province": "广东省",
             "city": "广州市",
-            "region": "天河区",
-            "address_detail":"天府路107号",
+            "district": "天河区",
+            "detailaddress":"天府路107号",
             "mobile":"13681711251",
-            "name":"黄先生",
-            "check":false
+            "username":"黄先生",
+            "isdefault":1
         },{
-            "proID":12345012,
+            "id":12345012,
             "province": "广东省",
             "city": "深圳市",
-            "region": "南山区",
-            "address_detail":"塘朗地铁站",
+            "district": "南山区",
+            "detailaddress":"塘朗地铁站",
             "mobile":"13681711252",
-            "name":"王先生",
-            "check":false
+            "username":"王先生",
+            "isdefault":0
         },{
-            "proID":12345013,
+            "id":12345013,
             "province": "广东省",
             "city": "梅州市",
-            "region": "大埔县城",
-            "address_detail":"碧桂园12栋",
+            "district": "大埔县城",
+            "detailaddress":"碧桂园12栋",
             "mobile":"13681711253",
-            "name":"李先生",
-            "check":true
-        },{
-            "proID":12345014,
-            "province": "广东省",
-            "city": "广州市",
-            "region": "海珠区",
-            "address_detail":"中山大学",
-            "mobile":"13681711254",
-            "name":"孟小姐",
-            "check":false
-        }],
+            "username":"李先生",
+            "isdefault":0
+        }]
+        } ,
         // address: Mock.mock({
         //     'result|3': [{
         //         'proID|+1': 1,
